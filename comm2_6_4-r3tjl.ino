@@ -106,7 +106,7 @@ void setup(void){
   server.on("/wifi", handleWifi);
   server.on("/label", handleLabel);
   server.on("/labelsave", handleLabelSave);
-  server.on("/state1", handleState1);
+  server.on("/place1", handlePlace1);
   server.on("/toggle", handleToggle);
   server.on("/wifisave", handleWifiSave);
   server.on("/generate_204", handleRoot);
@@ -148,17 +148,17 @@ void setup(void){
     currentlabel1=String(label0);
     currentlabel=currentlabel1 + " / " + currentlabel2;
     digitalWrite(gpio0_pin, HIGH);
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket0Off", [](){
     turnOffGroup1();
     stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
     currentlabel="OFF / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket1On", [](){
     turnOffGroup1();
@@ -166,17 +166,17 @@ void setup(void){
     currentlabel1=String(label1);
     currentlabel=currentlabel1 + " / " + currentlabel2;
     digitalWrite(gpio1_pin, HIGH);
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket1Off", [](){
     turnOffGroup1();
     stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
     currentlabel="OFF / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket2On", [](){
     turnOffGroup1();
@@ -184,17 +184,17 @@ void setup(void){
     digitalWrite(gpio2_pin, HIGH);
     currentlabel1=String(label2);
     currentlabel=currentlabel1 + " / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket2Off", [](){
     turnOffGroup1();
     stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
     currentlabel="OFF / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket3On", [](){
     turnOffGroup1();
@@ -202,17 +202,17 @@ void setup(void){
     digitalWrite(gpio3_pin, HIGH);
     currentlabel1=String(label3);
     currentlabel=currentlabel1 + " / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket3Off", [](){
     turnOffGroup1();
     stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
     currentlabel="OFF / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket4On", [](){
     turnOffGroup2();
@@ -220,17 +220,17 @@ void setup(void){
     digitalWrite(gpio4_pin, HIGH);
     currentlabel2=String(label4);
     currentlabel=currentlabel1 + " / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket4Off", [](){
     turnOffGroup2();
     stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
     currentlabel=currentlabel1 + " / OFF";
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket5On", [](){
     turnOffGroup2();
@@ -238,17 +238,17 @@ void setup(void){
     digitalWrite(gpio5_pin, HIGH);
     currentlabel2=String(label5);
     currentlabel=currentlabel1 + " / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket5Off", [](){
     turnOffGroup2();
     stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
     currentlabel=currentlabel1 + " / OFF";
     server.send(200, "text/html", webPage);
-    webPage += "<script> document.location.href = \"/state1\"</script>";
-    handleSWR();
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    handlePlace1();
   });
   server.on("/socket6On", [](){
     turnOffGroup2();
@@ -256,17 +256,17 @@ void setup(void){
     digitalWrite(gpio6_pin, HIGH);
     currentlabel2=String(label6);
     currentlabel=currentlabel1 + " / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket6Off", [](){
     turnOffGroup2();
     stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
     currentlabel=currentlabel1 + " / OFF";
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket7On", [](){
     turnOffGroup2();
@@ -274,17 +274,17 @@ void setup(void){
     digitalWrite(gpio7_pin, HIGH);
     currentlabel2=String(label7);
     currentlabel=currentlabel1 + " / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   server.on("/socket7Off", [](){
     turnOffGroup2();
     stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
     currentlabel=currentlabel1 + " / OFF";
-    webPage += "<script> document.location.href = \"/state1\"</script>";
+    webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
-    handleSWR();
+    handlePlace1();
   });
   
 /*  Этот блок нужен для страницы принудительного включения, его убираем из прошивки   
@@ -641,7 +641,7 @@ void handleToggle ()
   server.send(200, "text/html", webPage2);
   }
 
-void handleState1 ()  //Web-интерфейс 1-го рабочего места
+void handlePlace1()  //Web-интерфейс 1-го рабочего места
 {
   buildJavascript();
   webPage = "<!DOCTYPE HTML> <html> <head> <title>1st WorkPlace Remote Console R3TJL</title>";
@@ -741,7 +741,7 @@ void handleRoot() {
   Page += "<h2>Please SELECT our WorkPlace: </h2>"
   Page += "<h3>(Left - 1st, right - 2nd)</h3>"
   Page += F(
-    "<p><h1><a href='/state1'>1st WorkPlace</a></h1></p>"
+    "<p><h1><a href='/place1'>1st WorkPlace</a></h1></p>"
     "<p><h1><a href='/toggle'>2nd WorkPlace</a></h1></p>"
     "<p><a href='/wifi'>Config the wifi connection</a></p>"
     "<p><a href='/label'>Config name of Ant labels</a></p>");
