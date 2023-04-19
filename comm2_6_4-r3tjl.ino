@@ -1,8 +1,8 @@
 
 /*
-Сервер для Wifi коммуатора
-Иркутск, 2019 г.
-ra0sms@bk.ru
+Сервер для Wifi коммутатора на 2 рабочих места
+R3TJL V0.01 2023 г.
+r3tjl@mail.ru
 */
 
 
@@ -47,7 +47,7 @@ int gpio5_pin = 14;
 int gpio6_pin = 12;
 int gpio7_pin = 13;
 int gpio8_pin = 15;
-char stat[9] =  "";
+char stat[9] =  ""; // массив переменных stat: каждый элемент (9 коммутируемых выходов) принимает значения 0 - не подкл., 1 - подкл. к 1 р/м, 2 - ко 2 р/м 
 int tim = 0;
 int sec = 0;
 int minute = 0;
@@ -694,7 +694,8 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
 
  // Удаленная группа антенн (4 выхода) 
   webPage += "<tr><td><p><h3><font color=\"red\">Outlying Ant Group </font></td>"; 
-  webPage += "<td>&nbsp; <h3><a href=\"pl2s1Off\"><button class=\"btn btn-off\">All outlying OFF</button></a></h3><br></td></tr>";
+  //здесь pl2s1 - условно, потом пропишется кнопка выключения удаленной группы антенн как положено
+  webPage += "<td>&nbsp; <h3><a href=\"pl2s1Off\"><button class=\"btn btn-off\">All outlying OFF</button></a></h3><br></td></tr>"; 
  
   // НАДО ДУМАТЬ - КАК обозначить серым все неактивные кнопки из группы малого коммутатора
   
