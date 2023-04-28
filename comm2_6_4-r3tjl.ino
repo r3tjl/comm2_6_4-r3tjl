@@ -143,7 +143,7 @@ void setup(void){
   });
   
   server.on("/pl1s0On", [](){
-    turnOffGroup1();
+    turnOffPlace1();
     stat[0] = '1';
     currentlabel1=String(label0);
     currentlabel=currentlabel1 + " / " + currentlabel2;
@@ -152,16 +152,17 @@ void setup(void){
     server.send(200, "text/html", webPage);
     handlePlace1();
   });
-  server.on("/pl1s0Off", [](){
-    turnOffGroup1();
-    stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
-    currentlabel="OFF / " + currentlabel2;
+
+  // Отключение всех антенн 1-го Р/М
+  server.on("/1stOff", [](){
+    turnOffPlace1();
+        currentlabel="OFF / " + currentlabel2;
     webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
     handlePlace1();
   });
   server.on("/pl1s1On", [](){
-    turnOffGroup1();
+    turnOffPlace1();
     stat[1] = '1';
     currentlabel1=String(label1);
     currentlabel=currentlabel1 + " / " + currentlabel2;
@@ -170,16 +171,16 @@ void setup(void){
     server.send(200, "text/html", webPage);
     handlePlace1();
   });
-  server.on("/pl1s1Off", [](){
-    turnOffGroup1();
-    stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
-    currentlabel="OFF / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
-    handlePlace1();
-  });
+//  server.on("/pl1s1Off", [](){
+//    turnOffPlace1();
+//    stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
+//    currentlabel="OFF / " + currentlabel2;
+//    webPage += "<script> document.location.href = \"/place1\"</script>";
+//    server.send(200, "text/html", webPage);
+//    handlePlace1();
+//  });
   server.on("/pl1s2On", [](){
-    turnOffGroup1();
+    turnOffPlace1();
     stat[2] = '1';
     digitalWrite(gpio2_pin, HIGH);
     currentlabel1=String(label2);
@@ -188,16 +189,16 @@ void setup(void){
     server.send(200, "text/html", webPage);
     handlePlace1();
   });
-  server.on("/pl1s2Off", [](){
-    turnOffGroup1();
-    stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
-    currentlabel="OFF / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
-    handlePlace1();
-  });
+//  server.on("/pl1s2Off", [](){
+//    turnOffPlace1();
+//    stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
+//    currentlabel="OFF / " + currentlabel2;
+//    webPage += "<script> document.location.href = \"/place1\"</script>";
+//    server.send(200, "text/html", webPage);
+//    handlePlace1();
+//  });
   server.on("/pl1s3On", [](){
-    turnOffGroup1();
+    turnOffPlace1();
     stat[3] = '1';
     digitalWrite(gpio3_pin, HIGH);
     currentlabel1=String(label3);
@@ -206,16 +207,16 @@ void setup(void){
     server.send(200, "text/html", webPage);
     handlePlace1();
   });
-  server.on("/pl1s3Off", [](){
-    turnOffGroup1();
-    stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
-    currentlabel="OFF / " + currentlabel2;
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
-    handlePlace1();
-  });
+//  server.on("/pl1s3Off", [](){
+//    turnOffPlace1();
+//    stat[0] = '0'; stat[1] = '0'; stat[2] = '0'; stat[3] = '0';
+//    currentlabel="OFF / " + currentlabel2;
+//    webPage += "<script> document.location.href = \"/place1\"</script>";
+//    server.send(200, "text/html", webPage);
+//    handlePlace1();
+//  });
   server.on("/pl1s4On", [](){
-    turnOffGroup2();
+    turnOffPlace1();
     stat[4] = '1';
     digitalWrite(gpio4_pin, HIGH);
     currentlabel2=String(label4);
@@ -224,53 +225,56 @@ void setup(void){
     server.send(200, "text/html", webPage);
     handlePlace1();
   });
-  server.on("/pl1s4Off", [](){
-    turnOffGroup2();
-    stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
-    currentlabel=currentlabel1 + " / OFF";
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
-    handlePlace1();
-  });
+//  server.on("/pl1s4Off", [](){
+//    turnOffGroup2();
+//    stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
+//    currentlabel=currentlabel1 + " / OFF";
+//    webPage += "<script> document.location.href = \"/place1\"</script>";
+//    server.send(200, "text/html", webPage);
+//    handlePlace1();
+//  });
   server.on("/pl1s5On", [](){
-    turnOffGroup2();
+    turnOffPlace1();
     stat[5] = '1';
     digitalWrite(gpio5_pin, HIGH);
+    digitalWrite(gpio6_pin, HIGH);
     currentlabel2=String(label5);
     currentlabel=currentlabel1 + " / " + currentlabel2;
     webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
     handlePlace1();
   });
-  server.on("/pl1s5Off", [](){
-    turnOffGroup2();
-    stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
-    currentlabel=currentlabel1 + " / OFF";
-    server.send(200, "text/html", webPage);
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    handlePlace1();
-  });
-  server.on("/pl2s0On", [](){
-    turnOffGroup2();
+//  server.on("/pl1s5Off", [](){
+//    turnOffGroup2();
+//    stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
+//    currentlabel=currentlabel1 + " / OFF";
+//    server.send(200, "text/html", webPage);
+//    webPage += "<script> document.location.href = \"/place1\"</script>";
+//    handlePlace1();
+//  });
+  server.on("/pl1s6On", [](){
+    turnOffPlace1();
     stat[6] = '1';
-    digitalWrite(gpio6_pin, HIGH);
+    digitalWrite(gpio5_pin, HIGH);
+    digitalWrite(gpio7_pin, HIGH);
     currentlabel2=String(label6);
     currentlabel=currentlabel1 + " / " + currentlabel2;
     webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
     handlePlace1();
   });
-  server.on("/pl2s0Off", [](){
-    turnOffGroup2();
-    stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
-    currentlabel=currentlabel1 + " / OFF";
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
-    handlePlace1();
-  });
-  server.on("/pl2s1On", [](){
-    turnOffGroup2();
+//  server.on("/pl2s0Off", [](){
+//    turnOffGroup2();
+//    stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
+//    currentlabel=currentlabel1 + " / OFF";
+//    webPage += "<script> document.location.href = \"/place1\"</script>";
+//    server.send(200, "text/html", webPage);
+//    handlePlace1();
+//  });
+  server.on("/pl1s7On", [](){
+    turnOffPlace1();
     stat[7] = '1';
+    digitalWrite(gpio5_pin, HIGH);
     digitalWrite(gpio7_pin, HIGH);
     currentlabel2=String(label7);
     currentlabel=currentlabel1 + " / " + currentlabel2;
@@ -278,14 +282,14 @@ void setup(void){
     server.send(200, "text/html", webPage);
     handlePlace1();
   });
-  server.on("/pl2s1Off", [](){
-    turnOffGroup2();
-    stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
-    currentlabel=currentlabel1 + " / OFF";
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
-    handlePlace1();
-  });
+//  server.on("/pl2s1Off", [](){
+//    turnOffGroup2();
+//    stat[4] = '0'; stat[5] = '0'; stat[6] = '0'; stat[7] = '0';
+//    currentlabel=currentlabel1 + " / OFF";
+//    webPage += "<script> document.location.href = \"/place1\"</script>";
+//    server.send(200, "text/html", webPage);
+//    handlePlace1();
+//  });
   
 /*  Этот блок нужен для страницы принудительного включения, его убираем из прошивки   
   server.on("/soc0On", [](){
@@ -672,21 +676,21 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   
   // Ближняя группа антенн (5 выходов)
   webPage += "<tr><td><p><h3><font color=\"red\">Near Ant group </font></td>"; 
-  webPage += "<td>&nbsp; <h3><a href=\"pl1s3Off\"><button class=\"btn btn-off\">All near OFF</button></a></h3><br></td></tr>";
+  webPage += "<td>&nbsp; <h3><a href=\"1stOff\"><button class=\"btn btn-off\">All Ant OFF</button></a></h3><br></td></tr>";
   
   stat[0] = '2'; // ПОТОМ УБРАТЬ !!!!!
     
   if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label0) + "<br></td>";}
 
 // НУЖНО ЛИ убирать конструкцию <a href=\"pl1s0On\"> ??????? и вставили disable в атрибуты кнопки
-    else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
+    else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label0) + "<br></td>";}
     //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label0) + "<br></td>";} 
   if (stat[1] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
-    else if (stat[1] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
+    else if (stat[1] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label1) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s1On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label1) + "<br></td></tr>";} 
   if (stat[2] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s2On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label2) + "<br></td>";}
-    else if (stat[2] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label2) + "<br></td>";}
+    else if (stat[2] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label2) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s2On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label2) + "<br></td>";} 
   if (stat[3] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s3On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
     else if (stat[3] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
@@ -699,23 +703,24 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
  // Удаленная группа антенн (4 выхода) 
   webPage += "<tr><td><p><h3><font color=\"red\">Outlying Ant Group </font></td>"; 
   //здесь pl2s1 - условно, потом пропишется кнопка выключения удаленной группы антенн как положено
-  webPage += "<td>&nbsp; <h3><a href=\"pl2s1Off\"><button class=\"btn btn-off\">All outlying OFF</button></a></h3><br></td></tr>"; 
+  webPage += "<td>&nbsp; <h3></h3><br></td></tr>"; 
  
   // НАДО ДУМАТЬ - КАК обозначить серым все неактивные кнопки из группы малого коммутатора
   
   if (stat[5] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s5On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label5) + "<br></td>";}
     else if (stat[5] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label5) + "<br></td>";} 
-  if (stat[6] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
+  if (stat[6] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s6On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
     else if (stat[6] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-          else {webPage += "<td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-  if (stat[7] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td>";}
+          else {webPage += "<td><p><h3><a href=\"pl1s6On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
+  if (stat[7] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s7On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td>";}
     else if (stat[7] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
-          else {webPage += "<tr><td><p><h3><a href=\"pl2s1On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label7) + "<br></td>";} 
+          else {webPage += "<tr><td><p><h3><a href=\"pl1s7On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label7) + "<br></td>";} 
   
   // ДОДЕЛАТЬ по 8 (9-му) выходу коммутатора
-  if (stat[8] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl2s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td></tr>";}
-    else {webPage += "<td><p><h3><a href=\"pl2s1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label7) + "<br></td></tr>";} 
+  if (stat[8] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s7On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td></tr>";}
+    else if (stat[8] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label7) + "<br></td></tr>";}
+          else {webPage += "<td><p><h3><a href=\"pl1s7On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label7) + "<br></td></tr>";} 
 //  webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";
 //  webPage += "<td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label5) + "<br></td></tr>";
 //  webPage += "<tr><td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label6) + "<br></td>";
@@ -1005,17 +1010,22 @@ void turnOffAll()
   digitalWrite(gpio6_pin, LOW);
   digitalWrite(gpio7_pin, LOW);
 }
-void turnOffGroup1()
+void turnOffPlace1()
 {
   currentlabel1="OFF";
-  stat[0]=stat[1]=stat[2]=stat[3]='0';
-  digitalWrite(gpio0_pin, LOW);
-  digitalWrite(gpio1_pin, LOW);
-  digitalWrite(gpio2_pin, LOW);
-  digitalWrite(gpio3_pin, LOW);
-  
+  //for (uint8_t i = 0; i < 8; i++) {
+  if (stat[0] != '2') {stat[0]='0';  digitalWrite(gpio0_pin, LOW);}
+  if (stat[1] != '2') {stat[1]='0';  digitalWrite(gpio1_pin, LOW);}
+  if (stat[2] != '2') {stat[2]='0';  digitalWrite(gpio2_pin, LOW);}
+  if (stat[3] != '2') {stat[3]='0';  digitalWrite(gpio3_pin, LOW);}    
+  if (stat[4] != '2') {stat[4]='0';  digitalWrite(gpio4_pin, LOW);}    
+  if (stat[5] != '2') {stat[5]='0';  digitalWrite(gpio5_pin, LOW);}    
+  if (stat[6] != '2') {stat[6]='0';  digitalWrite(gpio6_pin, LOW);}    
+  if (stat[7] != '2') {stat[7]='0';  digitalWrite(gpio7_pin, LOW);}    
+  // потом сюда добавляем новые пины для коммутатора - все 16
 } 
-void turnOffGroup2()
+void turnOffGroup2() // это будет под второе рабочее место
+
 {
   currentlabel2="OFF";
   stat[4]=stat[5]=stat[6]=stat[7]='0';
