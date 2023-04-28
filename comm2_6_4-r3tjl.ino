@@ -674,12 +674,12 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label0) + "<br></td>";}
 
 // НУЖНО ЛИ убирать конструкцию <a href=\"pl1s0On\"> ??????? и вставили disable в атрибуты кнопки
-//    else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3>!!!!!<a href=\"pl1s0On\">!!!!!<button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
+    else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3>!!!!!<a href=\"pl1s0On\">!!!!!<button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
 
-    else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-red\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
+    //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-red\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label0) + "<br></td>";} 
   if (stat[1] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
-    else if (stst[1] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s1On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
+    else if (stat[1] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s1On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label1) + "<br></td></tr>";} 
   if (stat[2] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s2On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label2) + "<br></td>";}
     else if (stat[2] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s2On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label2) + "<br></td>";}
@@ -703,7 +703,7 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
     else if (stat[6] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s5On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label5) + "<br></td>";} 
   if (stat[6] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-    else if (stst[6] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl2s0On\"><button class=\"btn btn-red\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
+    else if (stat[6] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl2s0On\"><button class=\"btn btn-red\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
   if (stat[7] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td>";}
     else if (stat[7] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl2s1On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
@@ -739,8 +739,8 @@ void handleRoot() {
   } else {
     Page += (String("<p>You are connected through the wifi network: ") + ssid + "</p>");
   }
-  Page += "<h2>Please SELECT our WorkPlace: </h2>"
-  Page += "<h3>(Left - 1st, right - 2nd)</h3>"
+  Page += "<h2>Please SELECT our WorkPlace: </h2>";
+  Page += "<h3>(Left - 1st, right - 2nd)</h3>";
   Page += F(
     "<p><h1><a href='/place1'>1st WorkPlace</a></h1></p>"
     "<p><h1><a href='/toggle'>2nd WorkPlace</a></h1></p>"
@@ -801,7 +801,7 @@ void handleLabelSave() {
   server.arg("l5").toCharArray(label5, sizeof(label5) - 1);
   server.arg("l6").toCharArray(label6, sizeof(label6) - 1);
   server.arg("l7").toCharArray(label7, sizeof(label7) - 1);
-  server.sendHeader("Location", "switch", true);
+  server.sendHeader("Location", "label", true);
   server.sendHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   server.sendHeader("Pragma", "no-cache");
   server.sendHeader("Expires", "-1");
