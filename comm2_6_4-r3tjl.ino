@@ -476,7 +476,7 @@ void loop(void){
 void CheckStat () // Видимо присвоение значения меткам включенных антенн - не соответствует, ПЕРЕДЕЛАТЬ !!!
 /* Он используется в блоке, где принудительно включаются выходы. Либо он вообще не нужен, либо его переделать
    на вывод значений в основных блоках и вызывать оттуда 
-   выводится это всё процедурой builgXML () под меткой 'runtime' как response */
+   выводится это всё процедурой buildXML () под меткой 'runtime' как response */
 {
   currentlabel ="";
   if (stat[0] == '1') currentlabel+=String(label0)+ " ";
@@ -494,6 +494,7 @@ void handleXML() {
   server.send(200, "text/xml", XML);
 }
 
+/*
 void BuildSVG()
 {
  SVG = "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\"";
@@ -563,7 +564,7 @@ void BuildSVG()
 "0 75 c0 82 12 118 44 133 12 6 111 11 239 11 l217 1 0 -110z\"/>"
 "</g>"
 "</svg>"); 
-}
+}*/
 
 void buildJavascript() {
   javaScript = "<SCRIPT>\n";
@@ -675,7 +676,7 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   webPage += "<table border=\"1\" width=\"600\"><tbody>";
   
   // Ближняя группа антенн (5 выходов)
-  webPage += "<tr><td colspan=2><p><h1><font color=\"red\">HOME Antenna Group </font></td></tr>"; 
+  webPage += "<tr><td colspan=2><p><h1><font color=\"red\">HOUSE Antenna Group </font></td></tr>"; 
   //webPage += "<td>&nbsp; <h3><button class=\"btn btn-off\">All 1st Ant OFF</button></h3><br></td></tr>";
   
   stat[4] = '2'; // ПОТОМ УБРАТЬ !!!!!
@@ -741,7 +742,7 @@ void handleRoot() {
   server.setContentLength(CONTENT_LENGTH_UNKNOWN);
  /* server.send(200, "text/html", "");*/
  String Page;
- BuildSVG(); // это видимо построение "логотипа" Антона ???
+ //BuildSVG(); // это видимо построение "логотипа" Антона ???
   Page =F(
     "<!DOCTYPE HTML> <html><head></head><body>"
     "<h1>Start page R3TJL Remote console</h1>"    
@@ -751,8 +752,8 @@ void handleRoot() {
   } else {
     Page += (String("<p>You are connected through the wifi network: ") + ssid + "</p>");
   }
-  Page += "<h2>Please SELECT our WorkPlace: </h2>";
-  Page += "<h3>(Left - 1st, right - 2nd)</h3>";
+  Page += "<h2>Please SELECT our WorkPlace: ";
+  Page += "(Left - 1st, right - 2nd)</h2>";
   Page += F(
     "<p><h1><a href='/place1'>1st WorkPlace</a></h1></p>"
     "<p><h1><a href='/toggle'>2nd WorkPlace</a></h1></p>"
