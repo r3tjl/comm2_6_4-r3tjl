@@ -651,6 +651,11 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   webPage += ".btn {background-color: #4CAF50; border: none; color: white; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 1px 2px; -webkit-transition-duration: 0.4s; transition-duration: 0.4s; cursor: pointer;}";
   webPage += ".btn-on {background-color: white; color: black; border: 2px solid #4CAF50;}";
   webPage += ".btn-off {background-color: white; color: black; border: 2px solid #f44336;}";
+  webPage += ".btn-blk {background-color: red; color: black; border: 2px solid #f44336;}";
+  webPage += ".btn-blk2 {background-color: gray; color: black; border: 2px solid #f44336;}"; 
+  
+  // класс "btn-blk2" будет у неактивных антенн дальней группы, если одна из этих антенн активирована другим рабочим местом (и обозхначена классом "btn-blk")
+    
   //webPage += ".btn-green {background-color: green; color: black; border: 2px solid #f44336;}";
   webPage += ".btn-on:active {background: green;}";
   webPage += ".btn-off:active {background: red;}";
@@ -669,27 +674,26 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   webPage += "<tr><td><p><h3><font color=\"red\">Near Ant group </font></td>"; 
   webPage += "<td>&nbsp; <h3><a href=\"pl1s3Off\"><button class=\"btn btn-off\">All near OFF</button></a></h3><br></td></tr>";
   
-  stat[0] = 2; // ПОТОМ УБРАТЬ !!!!!
-  
+  stat[0] = '2'; // ПОТОМ УБРАТЬ !!!!!
+    
   if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label0) + "<br></td>";}
 
 // НУЖНО ЛИ убирать конструкцию <a href=\"pl1s0On\"> ??????? и вставили disable в атрибуты кнопки
-    else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3>!!!!!<a href=\"pl1s0On\">!!!!!<button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
-
-    //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-red\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
-          else {webPage += "<tr><td><p><h3><a href=\"pl1s0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label0) + "<br></td>";} 
+    else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
+    //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
+          else {webPage += "<tr><td><p><h3><a href=\"pl1s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label0) + "<br></td>";} 
   if (stat[1] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
-    else if (stat[1] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s1On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
-          else {webPage += "<td><p><h3><a href=\"pl1s1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label1) + "<br></td></tr>";} 
+    else if (stat[1] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
+          else {webPage += "<td><p><h3><a href=\"pl1s1On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label1) + "<br></td></tr>";} 
   if (stat[2] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s2On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label2) + "<br></td>";}
-    else if (stat[2] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s2On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label2) + "<br></td>";}
+    else if (stat[2] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label2) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s2On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label2) + "<br></td>";} 
   if (stat[3] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s3On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
-    else if (stat[3] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s3On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
-          else {webPage += "<td><p><h3><a href=\"pl1s3On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
+    else if (stat[3] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
+          else {webPage += "<td><p><h3><a href=\"pl1s3On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
   if (stat[4] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s4On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";}
-    else if (stat[4] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s4On\"><button class=\"btn btn-redn\">BLK</button></a>&nbsp; " + String(label4) + "<br></td>";}
-          else {webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";} 
+    else if (stat[4] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label4) + "<br></td>";}
+          else {webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label4) + "<br></td>";} 
   webPage += "<td> </td></tr>";
 
  // Удаленная группа антенн (4 выхода) 
@@ -700,14 +704,14 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   // НАДО ДУМАТЬ - КАК обозначить серым все неактивные кнопки из группы малого коммутатора
   
   if (stat[5] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s5On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label5) + "<br></td>";}
-    else if (stat[6] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s5On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
-          else {webPage += "<tr><td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label5) + "<br></td>";} 
+    else if (stat[5] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
+          else {webPage += "<tr><td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label5) + "<br></td>";} 
   if (stat[6] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-    else if (stat[6] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl2s0On\"><button class=\"btn btn-red\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-          else {webPage += "<td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
+    else if (stat[6] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
+          else {webPage += "<td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
   if (stat[7] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td>";}
-    else if (stat[7] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl2s1On\"><button class=\"btn btn-red\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
-          else {webPage += "<tr><td><p><h3><a href=\"pl2s1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label7) + "<br></td>";} 
+    else if (stat[7] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
+          else {webPage += "<tr><td><p><h3><a href=\"pl2s1On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label7) + "<br></td>";} 
   
   // ДОДЕЛАТЬ по 8 (9-му) выходу коммутатора
   if (stat[8] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl2s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td></tr>";}
