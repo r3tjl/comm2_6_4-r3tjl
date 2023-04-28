@@ -669,20 +669,19 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   webPage += "<BODY onload='process()'>";
   /*webPage += "<h1>Remote console</h1>";*/
   //webPage += "<p><font color=\"red\" face=\"Arial\"><h2>" + currentlabel + "</font></h2></p>";
-  webPage += "<p><h3><font color=\"green\" face=\"Arial\"> OUT: Comm 1 / Comm 2: </font><font color=\"red\" face=\"Arial\"><a id='runtime'></a></font></h3></p>";
+  webPage += "<p><h2><font color=\"green\" face=\"Arial\"> Our: </font><font color=\"red\" face=\"Arial\">1-ST </font><font color=\"green\" face=\"Arial\">WorkPlace!!! </font><font color=\"red\" face=\"Arial\"><a id='runtime'></h2></a></font></p>";
   webPage += "</BODY>";
     //webPage += "<p><font color=\"red\" face=\"Arial\"><h2>Commutator 1: " + currentlabel1 + "</font></h2></p>";
   webPage += "<table border=\"1\" width=\"600\"><tbody>";
   
   // Ближняя группа антенн (5 выходов)
-  webPage += "<tr><td><p><h3><font color=\"red\">Near Ant group </font></td>"; 
-  webPage += "<td>&nbsp; <h3><a href=\"1stOff\"><button class=\"btn btn-off\">All Ant OFF</button></a></h3><br></td></tr>";
+  webPage += "<tr><td colspan=2><p><h1><font color=\"red\">HOME Antenna Group </font></td></tr>"; 
+  //webPage += "<td>&nbsp; <h3><button class=\"btn btn-off\">All 1st Ant OFF</button></h3><br></td></tr>";
   
-  stat[0] = '2'; // ПОТОМ УБРАТЬ !!!!!
+  stat[4] = '2'; // ПОТОМ УБРАТЬ !!!!!
     
   if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label0) + "<br></td>";}
 
-// НУЖНО ЛИ убирать конструкцию <a href=\"pl1s0On\"> ??????? и вставили disable в атрибуты кнопки
     else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label0) + "<br></td>";}
     //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label0) + "<br></td>";} 
@@ -698,28 +697,32 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   if (stat[4] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s4On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";}
     else if (stat[4] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label4) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label4) + "<br></td>";} 
-  webPage += "<td> </td></tr>";
+          
+  webPage += "<td>&nbsp; <h3><a href=\"1stOff\"><button class=\"btn btn-off\">All 1st Ant OFF</button></a></h3></td></tr>";
 
  // Удаленная группа антенн (4 выхода) 
-  webPage += "<tr><td><p><h3><font color=\"red\">Outlying Ant Group </font></td>"; 
-  //здесь pl2s1 - условно, потом пропишется кнопка выключения удаленной группы антенн как положено
-  webPage += "<td>&nbsp; <h3></h3><br></td></tr>"; 
+  webPage += "<tr><td colspan=2><p><h1><font color=\"red\">REMOTE Antenna Group </font></td></tr>"; 
+  //webPage += "<td>&nbsp; <h3></h3><br></td></tr>"; 
  
   // НАДО ДУМАТЬ - КАК обозначить серым все неактивные кнопки из группы малого коммутатора
   
   if (stat[5] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s5On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label5) + "<br></td>";}
     else if (stat[5] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
+        else if (stat[6] == '2' || stat[7] == '2' || stat [8] == '2') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label5) + "<br></td>";} 
   if (stat[6] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s6On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
     else if (stat[6] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
+        else if (stat[5] == '2' || stat[7] == '2' || stat [8] == '2') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s6On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
   if (stat[7] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s7On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td>";}
     else if (stat[7] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
+        else if (stat[5] == '2' || stat[6] == '2' || stat [8] == '2') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s7On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label7) + "<br></td>";} 
   
-  // ДОДЕЛАТЬ по 8 (9-му) выходу коммутатора
+  // ДОДЕЛАТЬ по 8 (9-му) выходу коммутатора - ссылаться на правильную страницу
   if (stat[8] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s7On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
-    else if (stat[8] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
+    else if (stat[8] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
+        else if (stat[5] == '2' || stat[6] == '2' || stat [7] == '2') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s7On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label8) + "<br></td></tr>";} 
 //  webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";
 //  webPage += "<td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label5) + "<br></td></tr>";
@@ -773,30 +776,31 @@ void handleLabel() {
     "<h1>Name of labels configuration</h1>"
   );
    Page2 += F(
-    "</table>"
-    "\r\n<br /><form method='POST' action='labelsave'><h4>Label's captions:</h4>"
-    "<input type='text' placeholder='label0' name='l0'/>"
+    "\r\n<br /><form method='POST' action='labelsave'><h3>Label's captions:</h3>"
+    "<br />HOME Antenna group"
+    "<br /><input type='text' placeholder='label0' name='l0'/>"
     "<br /><input type='text' placeholder='label1' name='l1'/>"
     "<br /><input type='text' placeholder='label2' name='l2'/>"
     "<br /><input type='text' placeholder='label3' name='l3'/>"
     "<br /><input type='text' placeholder='label4' name='l4'/>"
+    "<br />REMOTE Antenna group"
     "<br /><input type='text' placeholder='label5' name='l5'/>"
     "<br /><input type='text' placeholder='label6' name='l6'/>"
     "<br /><input type='text' placeholder='label7' name='l7'/>"
     "<br /><input type='text' placeholder='label8' name='l8'/>"
     "<br /><input type='submit' value='Save captions'/></form>"
-//    "<p><a href='/'>Return to the home page</a>.</p>"
+//  //"<p><a href='/'>Return to the home page</a>.</p>"
     "</body></html>"
   );
-  Page2 += "<p><h5>L0: " + String(label0);
-  Page2 += "<h5>L1: " + String(label1);
-  Page2 += "<h5>L2: " + String(label2);
-  Page2 += "<h5>L3: " + String(label3);
-  Page2 += "<h5>L4: " + String(label4);
-  Page2 += "<h5>L5: " + String(label5);
-  Page2 += "<h5>L6: " + String(label6);
-  Page2 += "<h5>L7: " + String(label7);
-  Page2 += "<h5>L8: " + String(label8) + "</p>";
+  Page2 += "<h5><p>L0: " + String(label0);
+  Page2 += "  L1: " + String(label1);
+  Page2 += "  L2: " + String(label2) + "</p>";
+  Page2 += "<p>L3: " + String(label3);
+  Page2 += "  L4: " + String(label4) + "</p>";
+  Page2 += "<p>L5: " + String(label5);
+  Page2 += "  L6: " + String(label6);
+  Page2 += "  L7: " + String(label7);
+  Page2 += "  L8: " + String(label8) + "</p>";
   Page2 += "<p><h3><a href='/'>Return to the home page</a>.</p>";
    /*server.client().stop(); */
   server.send(200, "text/html", Page2);
