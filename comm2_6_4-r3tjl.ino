@@ -718,9 +718,9 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
           else {webPage += "<tr><td><p><h3><a href=\"pl1s7On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label7) + "<br></td>";} 
   
   // ДОДЕЛАТЬ по 8 (9-му) выходу коммутатора
-  if (stat[8] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s7On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td></tr>";}
-    else if (stat[8] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label7) + "<br></td></tr>";}
-          else {webPage += "<td><p><h3><a href=\"pl1s7On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label7) + "<br></td></tr>";} 
+  if (stat[8] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><a href=\"pl1s7On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
+    else if (stat[8] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
+          else {webPage += "<td><p><h3><a href=\"pl1s7On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label8) + "<br></td></tr>";} 
 //  webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";
 //  webPage += "<td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label5) + "<br></td></tr>";
 //  webPage += "<tr><td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label6) + "<br></td>";
@@ -783,6 +783,7 @@ void handleLabel() {
     "<br /><input type='text' placeholder='label5' name='l5'/>"
     "<br /><input type='text' placeholder='label6' name='l6'/>"
     "<br /><input type='text' placeholder='label7' name='l7'/>"
+    "<br /><input type='text' placeholder='label8' name='l8'/>"
     "<br /><input type='submit' value='Save captions'/></form>"
 //    "<p><a href='/'>Return to the home page</a>.</p>"
     "</body></html>"
@@ -794,7 +795,8 @@ void handleLabel() {
   Page2 += "<h5>L4: " + String(label4);
   Page2 += "<h5>L5: " + String(label5);
   Page2 += "<h5>L6: " + String(label6);
-  Page2 += "<h5>L7: " + String(label7) + "</p>";
+  Page2 += "<h5>L7: " + String(label7);
+  Page2 += "<h5>L8: " + String(label8) + "</p>";
   Page2 += "<p><h3><a href='/'>Return to the home page</a>.</p>";
    /*server.client().stop(); */
   server.send(200, "text/html", Page2);
@@ -810,6 +812,7 @@ void handleLabelSave() {
   server.arg("l5").toCharArray(label5, sizeof(label5) - 1);
   server.arg("l6").toCharArray(label6, sizeof(label6) - 1);
   server.arg("l7").toCharArray(label7, sizeof(label7) - 1);
+  server.arg("l8").toCharArray(label8, sizeof(label8) - 1);
   server.sendHeader("Location", "label", true);
   server.sendHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   server.sendHeader("Pragma", "no-cache");
@@ -830,8 +833,9 @@ void loadLabels() {
   EEPROM.get(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4), label5);
   EEPROM.get(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5), label6);
   EEPROM.get(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5) + sizeof(label6), label7);
+  EEPROM.get(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5) + sizeof(label6) + sizeof(label7), label8);
   char ok[7 + 1];
-  EEPROM.get(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5) + sizeof(label6) + sizeof(label7), ok);
+  EEPROM.get(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5) + sizeof(label6) + sizeof(label7) + sizeof(label8), ok);
   EEPROM.end();
   if (String(ok) != String("OK")) {
     label0[0] = 0;
@@ -841,7 +845,8 @@ void loadLabels() {
     label4[0] = 0;
     label5[0] = 0;
     label6[0] = 0;
-    label7[0] = 0;    
+    label7[0] = 0;  
+    label8[0] = 0;    
   }
   Serial.println("Labels:");
   Serial.println(label0);
@@ -852,6 +857,7 @@ void loadLabels() {
   Serial.println(label5);
   Serial.println(label6);
   Serial.println(label7);
+  Serial.println(label8);
 }
 
 /** Store WLAN credentials to EEPROM */
@@ -865,8 +871,9 @@ void saveLabels() {
   EEPROM.put(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4), label5);
   EEPROM.put(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5), label6);
   EEPROM.put(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5) + sizeof(label6), label7);
+  EEPROM.put(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5) + sizeof(label6) + sizeof(label7), label8);
   char ok[8 + 1] = "OK";
-  EEPROM.put(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5) + sizeof(label6) + sizeof(label7), ok);
+  EEPROM.put(100 + sizeof(label0) + sizeof(label1) + sizeof(label2) + sizeof(label3) + sizeof(label4) + sizeof(label5) + sizeof(label6) + sizeof(label7) + sizeof(label8), ok);
   EEPROM.commit();
   EEPROM.end();
 }
