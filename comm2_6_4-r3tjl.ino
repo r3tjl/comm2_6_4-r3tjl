@@ -12,7 +12,7 @@ r3tjl@mail.ru
 #include <DNSServer.h>
 #include <ESP8266mDNS.h>
 #include <EEPROM.h>
-#include <WIRE.h>
+#include <Wire.h>
 #include <PCF8574.h>   //или PCF8574_ESP.h           
  
 const char *softAP_ssid = "RKconsole_r3tjl";
@@ -39,7 +39,6 @@ String ourPage = "";
 String Page3="";
 String javaScript, XML, SVG;
 
-/* 
 int gpio0_pin = 16;
 int gpio1_pin = 5;
 int gpio2_pin = 4;
@@ -49,7 +48,7 @@ int gpio5_pin = 14;
 int gpio6_pin = 12;
 int gpio7_pin = 13;
 int gpio8_pin = 15;
- */
+
 char stat[9] =  ""; // массив переменных stat: каждый элемент (9 коммутируемых выходов) принимает значения 0 - не подкл., 1 - подкл. к 1 р/м, 2 - ко 2 р/м 
 int tim = 0;
 int sec = 0;
@@ -97,7 +96,7 @@ void setup(void){
  */
 
   Wire.pins(4,5); //пины интерфейса i2c
-  //Wire.begin(4,5);
+  Wire.begin(4,5);
 
   // инициализация первой платы расширения
   pcf1.pinMode(P0, OUTPUT);
