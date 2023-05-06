@@ -12,8 +12,9 @@ r3tjl@mail.ru
 #include <DNSServer.h>
 #include <ESP8266mDNS.h>
 #include <EEPROM.h>
+#include <WIRE.h>
+#include <PCF8574.h>   //или PCF8574_ESP.h           
  
-
 const char *softAP_ssid = "RKconsole_r3tjl";
 const char *softAP_password = "1234567890";
 const char *myHostname = "esp8266";
@@ -37,7 +38,8 @@ String webPage2 = "";
 String ourPage = "";
 String Page3="";
 String javaScript, XML, SVG;
- 
+
+/* 
 int gpio0_pin = 16;
 int gpio1_pin = 5;
 int gpio2_pin = 4;
@@ -47,6 +49,7 @@ int gpio5_pin = 14;
 int gpio6_pin = 12;
 int gpio7_pin = 13;
 int gpio8_pin = 15;
+ */
 char stat[9] =  ""; // массив переменных stat: каждый элемент (9 коммутируемых выходов) принимает значения 0 - не подкл., 1 - подкл. к 1 р/м, 2 - ко 2 р/м 
 int tim = 0;
 int sec = 0;
@@ -55,6 +58,9 @@ int hour = 0;
 int day = 0;
 int flagAP=0;
 int flag_off=0;
+
+PCF8574 pcf1(0x20); // первая плата расширения
+//PCF8574 pcf2(0x21); // вторая плата расширения
 
 const byte DNS_PORT = 53;
 DNSServer dnsServer;
@@ -69,6 +75,7 @@ unsigned int status = WL_IDLE_STATUS;
 
 void setup(void){
   delay(100);
+/* 
   pinMode(gpio0_pin, OUTPUT);
   digitalWrite(gpio0_pin, LOW);
   pinMode(gpio1_pin, OUTPUT);
@@ -87,8 +94,44 @@ void setup(void){
   digitalWrite(gpio7_pin, LOW);
   pinMode(gpio8_pin, OUTPUT);
   digitalWrite(gpio8_pin, LOW);
+ */
 
+  Wire.pins(4,5); //пины интерфейса i2c
+  //Wire.begin(4,5);
+
+  // инициализация первой платы расширения
+  pcf1.pinMode(P0, OUTPUT);
+  pcf1.digitalWrite(P0, LOW);
+  pcf1.pinMode(P1, OUTPUT);
+  pcf1.digitalWrite(P1, LOW);
+  pcf1.pinMode(P2, OUTPUT);
+  pcf1.digitalWrite(P2, LOW);
+  pcf1.pinMode(P3, OUTPUT);
+  pcf1.digitalWrite(P3, LOW);
+  pcf1.pinMode(P4, OUTPUT);
+  pcf1.digitalWrite(P4, LOW);
+  pcf1.pinMode(P5, OUTPUT);
+  pcf1.digitalWrite(P5, LOW);
+  pcf1.pinMode(P6, OUTPUT);
+  pcf1.digitalWrite(P6, LOW);
+  pcf1.pinMode(P7, OUTPUT);
+  pcf1.digitalWrite(P7, LOW);
+  
   Serial.begin(115200);
+  Serial.println();
+
+  Serial.print("Init PCF1...");
+  if (pcf1.begin())
+  {
+    Serial.println("Ok");
+  }
+  else
+  {
+    Serial.println("Error");
+  }
+  delay(50);
+
+  
   Serial.println();
   Serial.print("Configuring access point...");
   /* You can remove the password parameter if you want the AP to be open. */
