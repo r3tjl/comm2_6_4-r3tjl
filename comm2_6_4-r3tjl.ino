@@ -913,7 +913,7 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
 {
   buildJavascript();
   webPage = "<!DOCTYPE HTML> <html> <head> <title>1st WorkPlace Remote Console R3TJL</title>";
-  webPage += "<meta http-equiv=\'refresh\' content=\'10\'>";
+  webPage += "<meta http-equiv=\'refresh\' content=\'10\'>"; // обновление страницы
   webPage += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
   webPage += "<style type=\"text/css\">";
   webPage += ".btn {background-color: #4CAF50; border: none; color: white; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 1px 2px; -webkit-transition-duration: 0.4s; transition-duration: 0.4s; cursor: pointer;}";
