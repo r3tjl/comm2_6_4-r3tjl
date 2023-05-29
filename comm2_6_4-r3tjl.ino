@@ -233,9 +233,9 @@ void setup(void){
       currentlabel1=String(label0);
       currentlabel=currentlabel1 + " / " + currentlabel2;
       pcf1.digitalWrite(P0, HIGH);
-      webPage += "<script> document.location.href = \"/place1\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -256,9 +256,9 @@ void setup(void){
       currentlabel1=String(label1);
       currentlabel=currentlabel1 + " / " + currentlabel2;
       pcf1.digitalWrite(P1, HIGH);
-      webPage += "<script> document.location.href = \"/place1\"</script>";
-      server.send(200, "text/html", webPage);
     }  
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -270,9 +270,9 @@ void setup(void){
       pcf1.digitalWrite(P2, HIGH);
       currentlabel1=String(label2);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place1\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -284,9 +284,9 @@ void setup(void){
       pcf1.digitalWrite(P3, HIGH);
       currentlabel1=String(label3);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place1\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -298,9 +298,9 @@ void setup(void){
       pcf1.digitalWrite(P4, HIGH);
       currentlabel1=String(label4);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place1\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -313,9 +313,9 @@ void setup(void){
       pcf1.digitalWrite(P6, HIGH);
       currentlabel1=String(label5);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place1\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -328,9 +328,9 @@ void setup(void){
       pcf1.digitalWrite(P7, HIGH);
       currentlabel1=String(label6);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place1\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -343,9 +343,9 @@ void setup(void){
       pcf2.digitalWrite(P6, HIGH);
       currentlabel1=String(label7);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place1\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace1();
   });
   server.on("/pl1s8On", [](){
@@ -357,9 +357,9 @@ void setup(void){
       pcf2.digitalWrite(P7, HIGH);
       currentlabel1=String(label8);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place1\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place1\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -373,9 +373,9 @@ void setup(void){
       currentlabel2=String(label0);
       currentlabel=currentlabel1 + " / " + currentlabel2;
       pcf2.digitalWrite(P0, HIGH);
-      webPage += "<script> document.location.href = \"/place2\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place2\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -396,9 +396,9 @@ void setup(void){
       currentlabel2=String(label1);
       currentlabel=currentlabel1 + " / " + currentlabel2;
       pcf2.digitalWrite(P1, HIGH);
-      webPage += "<script> document.location.href = \"/place2\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place2\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -410,9 +410,9 @@ void setup(void){
       pcf2.digitalWrite(P2, HIGH);
       currentlabel2=String(label2);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place2\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place2\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -424,9 +424,9 @@ void setup(void){
       pcf2.digitalWrite(P3, HIGH);
       currentlabel2=String(label3);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place2\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place2\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -438,9 +438,9 @@ void setup(void){
       pcf2.digitalWrite(P4, HIGH);
       currentlabel2=String(label4);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place2\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place2\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -453,9 +453,9 @@ void setup(void){
       pcf1.digitalWrite(P6, HIGH);
       currentlabel2=String(label5);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place2\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place2\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -468,9 +468,9 @@ void setup(void){
       pcf1.digitalWrite(P7, HIGH);
       currentlabel2=String(label6);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place2\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place2\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -483,9 +483,9 @@ void setup(void){
       pcf2.digitalWrite(P6, HIGH);
       currentlabel2=String(label7);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place2\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place2\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace2();
   });
   server.on("/pl2s8On", [](){
@@ -497,9 +497,9 @@ void setup(void){
       pcf2.digitalWrite(P7, HIGH);
       currentlabel2=String(label8);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      webPage += "<script> document.location.href = \"/place2\"</script>";
-      server.send(200, "text/html", webPage);
     }
+    webPage += "<script> document.location.href = \"/place2\"</script>";
+    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -913,7 +913,7 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
 {
   buildJavascript();
   webPage = "<!DOCTYPE HTML> <html> <head> <title>1st WorkPlace Remote Console R3TJL</title>";
-  webPage += "<meta http-equiv=\'refresh\' content=\'10\'>"; // обновление страницы
+  webPage += "<meta http-equiv=\'refresh\' content=\'5\'>"; // обновление страницы
   webPage += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
   webPage += "<style type=\"text/css\">";
   webPage += ".btn {background-color: #4CAF50; border: none; color: white; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 1px 2px; -webkit-transition-duration: 0.4s; transition-duration: 0.4s; cursor: pointer;}";
@@ -1000,7 +1000,7 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
 {
   buildJavascript();
   webPage = "<!DOCTYPE HTML> <html> <head> <title>2nd WorkPlace Remote Console R3TJL</title>";
-  webPage += "<meta http-equiv=\'refresh\' content=\'10\'>"; //обновление страницы
+  webPage += "<meta http-equiv=\'refresh\' content=\'5\'>"; //обновление страницы
   webPage += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
   webPage += "<style type=\"text/css\">";
   webPage += ".btn {background-color: #4CAF50; border: none; color: white; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 1px 2px; -webkit-transition-duration: 0.4s; transition-duration: 0.4s; cursor: pointer;}";
