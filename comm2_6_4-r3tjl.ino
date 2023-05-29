@@ -63,9 +63,6 @@ int day = 0;
 int flagAP=0;
 int flag_off=0;
 
-PCF8574 pcf1(0x20); // первая плата расширения
-PCF8574 pcf2(0x21); // вторая плата расширения
-
 const byte DNS_PORT = 53;
 DNSServer dnsServer;
 
@@ -76,6 +73,8 @@ IPAddress netMsk(255, 255, 255, 0);
 boolean connect;
 unsigned long lastConnectTry = 0;
 unsigned int status = WL_IDLE_STATUS;
+PCF8574 pcf1(0x20); // первая плата расширения
+PCF8574 pcf2(0x21); // вторая плата расширения
 
 void setup(void){
   delay(100);
@@ -102,7 +101,7 @@ void setup(void){
 
   Wire.pins(4,5); //пины интерфейса i2c
   Wire.begin(4,5);
-
+    
   // инициализация первой платы расширения
   pcf1.pinMode(P0, OUTPUT);
   pcf1.digitalWrite(P0, LOW);
@@ -234,9 +233,9 @@ void setup(void){
       currentlabel1=String(label0);
       currentlabel=currentlabel1 + " / " + currentlabel2;
       pcf1.digitalWrite(P0, HIGH);
+      webPage += "<script> document.location.href = \"/place1\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -257,9 +256,9 @@ void setup(void){
       currentlabel1=String(label1);
       currentlabel=currentlabel1 + " / " + currentlabel2;
       pcf1.digitalWrite(P1, HIGH);
+      webPage += "<script> document.location.href = \"/place1\"</script>";
+      server.send(200, "text/html", webPage);
     }  
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -271,9 +270,9 @@ void setup(void){
       pcf1.digitalWrite(P2, HIGH);
       currentlabel1=String(label2);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place1\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -285,9 +284,9 @@ void setup(void){
       pcf1.digitalWrite(P3, HIGH);
       currentlabel1=String(label3);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place1\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -299,14 +298,14 @@ void setup(void){
       pcf1.digitalWrite(P4, HIGH);
       currentlabel1=String(label4);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place1\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
   server.on("/pl1s5On", [](){
-    if (stat[5] != '2')
+    if (stat[5] != '2' && stat[6] != '2' && stat [7] != '2' && stat[8] != '2')
     {
       turnOffPlace1();
       stat[5] = '1';
@@ -314,14 +313,14 @@ void setup(void){
       pcf1.digitalWrite(P6, HIGH);
       currentlabel1=String(label5);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place1\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
   server.on("/pl1s6On", [](){
-    if (stat[6] != '2')
+     if (stat[5] != '2' && stat[6] != '2' && stat [7] != '2' && stat[8] != '2')
     {
       turnOffPlace1();
       stat[6] = '1';
@@ -329,14 +328,14 @@ void setup(void){
       pcf1.digitalWrite(P7, HIGH);
       currentlabel1=String(label6);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place1\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
   server.on("/pl1s7On", [](){
-    if (stat[7] != '2')
+   if (stat[5] != '2' && stat[6] != '2' && stat [7] != '2' && stat[8] != '2')
     {
       turnOffPlace1();
       stat[7] = '1';
@@ -344,13 +343,13 @@ void setup(void){
       pcf2.digitalWrite(P6, HIGH);
       currentlabel1=String(label7);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place1\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace1();
   });
   server.on("/pl1s8On", [](){
-    if (stat[8] != '2')
+    if (stat[5] != '2' && stat[6] != '2' && stat [7] != '2' && stat[8] != '2')
     {
       turnOffPlace1();
       stat[8] = '1';
@@ -358,9 +357,9 @@ void setup(void){
       pcf2.digitalWrite(P7, HIGH);
       currentlabel1=String(label8);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place1\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place1\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace1();
   });
 
@@ -374,9 +373,9 @@ void setup(void){
       currentlabel2=String(label0);
       currentlabel=currentlabel1 + " / " + currentlabel2;
       pcf2.digitalWrite(P0, HIGH);
+      webPage += "<script> document.location.href = \"/place2\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place2\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -397,9 +396,9 @@ void setup(void){
       currentlabel2=String(label1);
       currentlabel=currentlabel1 + " / " + currentlabel2;
       pcf2.digitalWrite(P1, HIGH);
+      webPage += "<script> document.location.href = \"/place2\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place2\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -411,9 +410,9 @@ void setup(void){
       pcf2.digitalWrite(P2, HIGH);
       currentlabel2=String(label2);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place2\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place2\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -425,9 +424,9 @@ void setup(void){
       pcf2.digitalWrite(P3, HIGH);
       currentlabel2=String(label3);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place2\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place2\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -439,14 +438,14 @@ void setup(void){
       pcf2.digitalWrite(P4, HIGH);
       currentlabel2=String(label4);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place2\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place2\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
   server.on("/pl2s5On", [](){
-    if (stat[5] != '1')
+    if (stat[5] != '1' && stat[6] != '1' && stat [7] != '1' && stat[8] != '1')
     {
       turnOffPlace2();
       stat[5] = '2';
@@ -454,14 +453,14 @@ void setup(void){
       pcf1.digitalWrite(P6, HIGH);
       currentlabel2=String(label5);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place2\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place2\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
   server.on("/pl2s6On", [](){
-    if (stat[6] != '1')
+    if (stat[5] != '1' && stat[6] != '1' && stat[7] != '1' && stat[8] != '1')
     {
       turnOffPlace2();
       stat[6] = '2';
@@ -469,14 +468,14 @@ void setup(void){
       pcf1.digitalWrite(P7, HIGH);
       currentlabel2=String(label6);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place2\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place2\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
   server.on("/pl2s7On", [](){
-    if (stat[7] != '1')
+    if (stat[5] != '1' && stat[6] != '1' && stat [7] != '1' && stat[8] != '1')
     {
       turnOffPlace2();
       stat[7] = '2';
@@ -484,13 +483,13 @@ void setup(void){
       pcf2.digitalWrite(P6, HIGH);
       currentlabel2=String(label7);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place2\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place2\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace2();
   });
   server.on("/pl2s8On", [](){
-    if (stat[8] != '1')
+    if (stat[5] != '1' && stat[6] != '1' && stat [7] != '1' && stat[8] != '1')
     {
       turnOffPlace2();
       stat[8] = '2';
@@ -498,9 +497,9 @@ void setup(void){
       pcf2.digitalWrite(P7, HIGH);
       currentlabel2=String(label8);
       currentlabel=currentlabel1 + " / " + currentlabel2;
+      webPage += "<script> document.location.href = \"/place2\"</script>";
+      server.send(200, "text/html", webPage);
     }
-    webPage += "<script> document.location.href = \"/place2\"</script>";
-    server.send(200, "text/html", webPage);
     handlePlace2();
   });
 
@@ -914,7 +913,7 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
 {
   buildJavascript();
   webPage = "<!DOCTYPE HTML> <html> <head> <title>1st WorkPlace Remote Console R3TJL</title>";
-  //webPage += "<meta http-equiv=\'refresh\' content=\'3\'>";
+  webPage += "<meta http-equiv=\'refresh\' content=\'0\'>";
   webPage += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
   webPage += "<style type=\"text/css\">";
   webPage += ".btn {background-color: #4CAF50; border: none; color: white; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 1px 2px; -webkit-transition-duration: 0.4s; transition-duration: 0.4s; cursor: pointer;}";
@@ -945,20 +944,20 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   
   //stat[2] = '2'; // ПОТОМ УБРАТЬ !!!!!
     
-  if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label0) + "<br></td>";}
+  if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label0) + "<br></td>";}
     else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label0) + "<br></td>";}
     //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label0) + "<br></td>";} 
-  if (stat[1] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
+  if (stat[1] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label1) + "<br></td></tr>";}
     else if (stat[1] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label1) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s1On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label1) + "<br></td></tr>";} 
-  if (stat[2] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s2On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label2) + "<br></td>";}
+  if (stat[2] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label2) + "<br></td>";}
     else if (stat[2] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label2) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s2On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label2) + "<br></td>";} 
-  if (stat[3] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s3On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
+  if (stat[3] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label3) + "<br></td></tr>";}
     else if (stat[3] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s3On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
-  if (stat[4] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s4On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";}
+  if (stat[4] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label4) + "<br></td>";}
     else if (stat[4] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label4) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label4) + "<br></td>";} 
           
@@ -968,24 +967,22 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   webPage += "<tr><td colspan=2><p><h2><font color=\"red\">REMOTE Antenna'S Group </font></td></tr>"; 
   //webPage += "<td>&nbsp; <h3></h3><br></td></tr>"; 
  
-  // НАДО ДУМАТЬ - КАК обозначить серым все неактивные кнопки из группы малого коммутатора
-  
-  if (stat[5] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s5On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label5) + "<br></td>";}
-    else if (stat[5] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
-        else if (stat[6] == '2' || stat[7] == '2' || stat [8] == '2') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
+  if (stat[5] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label5) + "<br></td>";}
+    else if (stat[5] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label5) + "<br></td>";}
+        else if (stat[6] == '2' || stat[7] == '2' || stat [8] == '2') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button>&nbsp; " + String(label5) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label5) + "<br></td>";} 
-  if (stat[6] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s6On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-    else if (stat[6] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-        else if (stat[5] == '2' || stat[7] == '2' || stat [8] == '2') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
+  if (stat[6] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label6) + "<br></td></tr>";}
+    else if (stat[6] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label6) + "<br></td></tr>";}
+        else if (stat[5] == '2' || stat[7] == '2' || stat [8] == '2') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button>&nbsp; " + String(label6) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s6On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-  if (stat[7] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s7On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td>";}
-    else if (stat[7] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
+  if (stat[7] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label7) + "<br></td>";}
+    else if (stat[7] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label7) + "<br></td>";}
         else if (stat[5] == '2' || stat[6] == '2' || stat [8] == '2') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s7On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label7) + "<br></td>";} 
   
   // ДОДЕЛАТЬ по 8 (9-му) выходу коммутатора - ссылаться на правильную страницу
-  if (stat[8] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s8On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
-    else if (stat[8] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
+  if (stat[8] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label8) + "<br></td></tr>";}
+    else if (stat[8] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label8) + "<br></td></tr>";}
         else if (stat[5] == '2' || stat[6] == '2' || stat [7] == '2') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s8On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label8) + "<br></td></tr>";} 
 //  webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";
@@ -1032,21 +1029,21 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
   webPage += "<tr><td colspan=2><p><h2><font color=\"red\">HOUSE Antenna'S Group </font></td></tr>"; 
   //webPage += "<td>&nbsp; <h3><button class=\"btn btn-off\">All 1st Ant OFF</button></h3><br></td></tr>";
   
-  if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label0) + "<br></td>";}
+  if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label0) + "<br></td>";}
     else if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label0) + "<br></td>";}
     //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label0) + "<br></td>";} 
-  if (stat[1] == '2') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s1On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label1) + "<br></td></tr>";}
+  if (stat[1] == '2') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label1) + "<br></td></tr>";}
     else if (stat[1] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label1) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl2s1On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label1) + "<br></td></tr>";} 
-  if (stat[2] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s2On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label2) + "<br></td>";}
+  if (stat[2] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label2) + "<br></td>";}
     else if (stat[2] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label2) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl2s2On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label2) + "<br></td>";} 
-  if (stat[3] == '2') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s3On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
-    else if (stat[3] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
+  if (stat[3] == '2') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label3) + "<br></td></tr>";}
+    else if (stat[3] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label3) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl2s3On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
-  if (stat[4] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s4On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";}
-    else if (stat[4] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label4) + "<br></td>";}
+  if (stat[4] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label4) + "<br></td>";}
+    else if (stat[4] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label4) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl2s4On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label4) + "<br></td>";} 
           
   webPage += "<td>&nbsp; <h3><a href=\"2ndOff\"><button class=\"btn btn-off\">All 2nd Ant OFF</button></a></h3></td></tr>";
@@ -1057,22 +1054,22 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
  
   // НАДО ДУМАТЬ - КАК обозначить серым все неактивные кнопки из группы малого коммутатора
   
-  if (stat[5] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s5On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label5) + "<br></td>";}
-    else if (stat[5] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
-        else if (stat[6] == '1' || stat[7] == '1' || stat [8] == '1') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label5) + "<br></td>";}
+  if (stat[5] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label5) + "<br></td>";}
+    else if (stat[5] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label5) + "<br></td>";}
+        else if (stat[6] == '1' || stat[7] == '1' || stat [8] == '1') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button>&nbsp; " + String(label5) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl2s5On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label5) + "<br></td>";} 
-  if (stat[6] == '2') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s6On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-    else if (stat[6] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-        else if (stat[5] == '1' || stat[7] == '1' || stat [8] == '1') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
+  if (stat[6] == '2') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label6) + "<br></td></tr>";}
+    else if (stat[6] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label6) + "<br></td></tr>";}
+        else if (stat[5] == '1' || stat[7] == '1' || stat [8] == '1') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button>&nbsp; " + String(label6) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl2s6On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label6) + "<br></td></tr>";}
-  if (stat[7] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s7On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label7) + "<br></td>";}
-    else if (stat[7] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
-        else if (stat[5] == '1' || stat[6] == '1' || stat [8] == '1') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
+  if (stat[7] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label7) + "<br></td>";}
+    else if (stat[7] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label7) + "<br></td>";}
+        else if (stat[5] == '1' || stat[6] == '1' || stat [8] == '1') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button>&nbsp; " + String(label7) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl2s7On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label7) + "<br></td>";} 
   
-  if (stat[8] == '2') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl2s8On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
-    else if (stat[8] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
-        else if (stat[5] == '1' || stat[6] == '1' || stat [7] == '1') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
+  if (stat[8] == '2') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label8) + "<br></td></tr>";}
+    else if (stat[8] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label8) + "<br></td></tr>";}
+        else if (stat[5] == '1' || stat[6] == '1' || stat [7] == '1') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button>&nbsp; " + String(label8) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl2s8On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label8) + "<br></td></tr>";} 
 //  webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";
 //  webPage += "<td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label5) + "<br></td></tr>";
