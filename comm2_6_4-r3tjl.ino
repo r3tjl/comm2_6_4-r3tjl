@@ -39,7 +39,7 @@ String ourPage = "";
 String Page3="";
 String javaScript, XML, SVG;
 
-int gpio0_pin = 16;
+int gpio0_pin = 16; //это надо перепрописывать
 int gpio1_pin = 5;
 int gpio2_pin = 4;
 int gpio3_pin = 0;
@@ -59,7 +59,7 @@ int flagAP=0;
 int flag_off=0;
 
 PCF8574 pcf1(0x20); // первая плата расширения
-//PCF8574 pcf2(0x21); // вторая плата расширения
+PCF8574 pcf2(0x21); // вторая плата расширения
 
 const byte DNS_PORT = 53;
 DNSServer dnsServer;
@@ -119,7 +119,7 @@ void setup(void){
   Serial.begin(115200);
   Serial.println();
 
-  Serial.print("Init PCF1...");
+  Serial.print("Init Ext PortBoard-1...");
   if (pcf1.begin())
   {
     Serial.println("Ok");
@@ -129,6 +129,38 @@ void setup(void){
     Serial.println("Error");
   }
   delay(50);
+
+  // инициализация второй платы расширения
+  pcf2.pinMode(P0, OUTPUT);
+  pcf2.digitalWrite(P0, LOW);
+  pcf2.pinMode(P1, OUTPUT);
+  pcf2.digitalWrite(P1, LOW);
+  pcf2.pinMode(P2, OUTPUT);
+  pcf2.digitalWrite(P2, LOW);
+  pcf2.pinMode(P3, OUTPUT);
+  pcf2.digitalWrite(P3, LOW);
+  pcf2.pinMode(P4, OUTPUT);
+  pcf2.digitalWrite(P4, LOW);
+  pcf2.pinMode(P5, OUTPUT);
+  pcf2.digitalWrite(P5, LOW);
+  pcf2.pinMode(P6, OUTPUT);
+  pcf2.digitalWrite(P6, LOW);
+  pcf2.pinMode(P7, OUTPUT);
+  pcf2.digitalWrite(P7, LOW);
+  
+  Serial.println();
+
+  Serial.print("Init Ext PortBoard-2...");
+  if (pcf2.begin())
+  {
+    Serial.println("Ok");
+  }
+  else
+  {
+    Serial.println("Error");
+  }
+  delay(50);
+
 
   
   Serial.println();
@@ -698,7 +730,7 @@ void buildXML() {
   XML += "</response>";
 }
 
-void handleToggle ()
+void handleToggle () //старый интерфейс. оставим потом для проверки каждого канала
 {
   buildJavascript();
   webPage2 = "<!DOCTYPE HTML> <html> <head> <title>WI-FI Remote Console</title>";
@@ -766,13 +798,12 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   webPage += "<table border=\"1\" width=\"600\"><tbody>";
   
   // Ближняя группа антенн (5 выходов)
-  webPage += "<tr><td colspan=2><p><h1><font color=\"red\">HOUSE Antenna Group </font></td></tr>"; 
+  webPage += "<tr><td colspan=2><p><h1><font color=\"red\">HOUSE Antenna'S Group </font></td></tr>"; 
   //webPage += "<td>&nbsp; <h3><button class=\"btn btn-off\">All 1st Ant OFF</button></h3><br></td></tr>";
   
   stat[4] = '2'; // ПОТОМ УБРАТЬ !!!!!
     
   if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s0On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label0) + "<br></td>";}
-
     else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label0) + "<br></td>";}
     //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label0) + "<br></td>";} 
@@ -781,7 +812,7 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
           else {webPage += "<td><p><h3><a href=\"pl1s1On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label1) + "<br></td></tr>";} 
   if (stat[2] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s2On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label2) + "<br></td>";}
     else if (stat[2] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label2) + "<br></td>";}
-          else {webPage += "<tr><td><p><h3><a href=\"pl1s2On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label2) + "<br></td>";} 
+          else {webPage += "<tr><td><p><h3><a href=\"pl1s2On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label2) + "<br></td>";} 
   if (stat[3] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><a href=\"pl1s3On\"><button class=\"btn btn-green\">ON</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
     else if (stat[3] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s3On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label3) + "<br></td></tr>";}
@@ -792,7 +823,7 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   webPage += "<td>&nbsp; <h3><a href=\"1stOff\"><button class=\"btn btn-off\">All 1st Ant OFF</button></a></h3></td></tr>";
 
  // Удаленная группа антенн (4 выхода) 
-  webPage += "<tr><td colspan=2><p><h1><font color=\"red\">REMOTE Antenna Group </font></td></tr>"; 
+  webPage += "<tr><td colspan=2><p><h1><font color=\"red\">REMOTE Antenna'S Group </font></td></tr>"; 
   //webPage += "<td>&nbsp; <h3></h3><br></td></tr>"; 
  
   // НАДО ДУМАТЬ - КАК обозначить серым все неактивные кнопки из группы малого коммутатора
