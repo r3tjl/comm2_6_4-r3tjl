@@ -20,6 +20,8 @@ const char *softAP_password = "1234567890";
 const char *myHostname = "esp8266";
  
 char ssid[32] = "";
+String brd1 = "Unkown";
+String brd2 = "Unkown";
 char password[32] = "";
 char label0[32] ="";
 char label1[32] ="";
@@ -122,11 +124,13 @@ void setup(void){
   Serial.print("Init Ext PortBoard-1...");
   if (pcf1.begin())
   {
-    Serial.println("Ok");
+    Serial.println("Ok"); 
+    brd1 = "Ok !";
   }
   else
   {
-    Serial.println("Error");
+    Serial.println("Error"); 
+    brd1 = "Error";
   }
   delay(50);
 
@@ -153,11 +157,13 @@ void setup(void){
   Serial.print("Init Ext PortBoard-2...");
   if (pcf2.begin())
   {
-    Serial.println("Ok");
+    Serial.println("Ok"); 
+    brd2 = "Ok !";
   }
   else
   {
-    Serial.println("Error");
+    Serial.println("Error"); 
+    brd2 = "Error";
   }
   delay(50);
 
@@ -547,7 +553,7 @@ void loop(void){
   delay(1);
 }
 
-void CheckStat () // Видимо присвоение значения меткам включенных антенн - не соответствует, ПЕРЕДЕЛАТЬ !!!
+void CheckStat () // Присвоение значения меткам включенных антенн - не соответствует, ПЕРЕДЕЛАТЬ !!!
 /* Он используется в блоке, где принудительно включаются выходы. Либо он вообще не нужен, либо его переделать
    на вывод значений в основных блоках и вызывать оттуда 
    выводится это всё процедурой buildXML () под меткой 'runtime' как response */
@@ -863,7 +869,7 @@ void handleRoot() {
   server.setContentLength(CONTENT_LENGTH_UNKNOWN);
  /* server.send(200, "text/html", "");*/
  String Page;
-  BuildSVG(); // это видимо построение "логотипа" Антона ???
+  BuildSVG(); // это построение "логотипа" 
   Page =F(
     "<!DOCTYPE HTML> <html><head></head><body>"
     "<h1>Start page R3TJL Remote console</h1>"    
@@ -873,6 +879,9 @@ void handleRoot() {
   } else {
     Page += (String("<p>You are connected through the wifi network: ") + ssid + "</p>");
   }
+  
+  Page += (String("<p>First ExtBoard: ") + brd1 + String("   Second ExtBoard: ") + brd2 + "</p>");
+ 
   Page += "<h2>Please SELECT our WorkPlace: ";
   Page += "(Left - 1st, right - 2nd)</h2>";
   Page += F(
