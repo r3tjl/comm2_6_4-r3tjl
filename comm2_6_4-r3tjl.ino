@@ -51,7 +51,7 @@ int gpio5_pin = 14;
 int gpio6_pin = 12;
 int gpio7_pin = 13;
 */
-int gpio8_pin = 15;
+int gpio8_pin = 2; //пин зажигает светодиод при подключении к wifi
 
 
 char stat[9] =  ""; // массив переменных stat: каждый элемент (9 коммутируемых выходов) принимает значения 0 - не подкл., 1 - подкл. к 1 р/м, 2 - ко 2 р/м 
@@ -95,11 +95,12 @@ void setup(void){
   digitalWrite(gpio6_pin, LOW);
   pinMode(gpio7_pin, OUTPUT);
   digitalWrite(gpio7_pin, LOW);
-  pinMode(gpio8_pin, OUTPUT);
-  digitalWrite(gpio8_pin, LOW);
  */
+  pinMode(gpio8_pin, OUTPUT);
+  digitalWrite(gpio8_pin, HIGH);
+ 
 
-  Wire.pins(4,5); //пины интерфейса i2c
+  Wire.pins(4,5); //пины интерфейса i2c (4,5)
   Wire.begin(4,5);
     
   // инициализация первой платы расширения
@@ -666,7 +667,7 @@ void loop(void){
         Serial.println(ssid);
         Serial.print("IP address: ");
         Serial.println(WiFi.localIP());
-        digitalWrite(gpio8_pin, HIGH);
+        digitalWrite(gpio8_pin, LOW);
         flagAP=1;
       } else if (s == WL_NO_SSID_AVAIL) {
         digitalWrite(gpio8_pin, LOW);
@@ -928,6 +929,9 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   webPage += ".btn-on:active {background: green;}";
   webPage += ".btn-off:active {background: red;}";
   webPage += "</style> </head>";
+
+  if (brd1 == "Ok !" && brd2 == "Ok !") {
+  
   webPage += javaScript;
   webPage += "<body bgcolor=\"#c7daed\">";
   webPage += "<BODY onload='process()'>";
@@ -991,6 +995,8 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
 //  webPage += "<td><p><h3><a href=\"pl2s1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label7) + "<br></h3></p></td></tr>";
   webPage += "</tbody></table>";
   //webPage += "<p><a href=\"pl2s1Off\"><button class=\"btn btn-off\">OFF group 2</button></a></h3></p>";
+  }
+    else {webPage += "<p><h2><font color=\"red\" face=\"Arial\">!!! ERROR Init ExtBoards </font></h2></p>";}
   webPage += "<p><a href ='/'>Return to the home page</a></p>";  
   server.send(200, "text/html", webPage);
   }
@@ -1015,6 +1021,9 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
   webPage += ".btn-on:active {background: green;}";
   webPage += ".btn-off:active {background: red;}";
   webPage += "</style> </head>";
+
+  if (brd1 == "Ok !" && brd2 == "Ok !") {
+  
   webPage += javaScript;
   webPage += "<body bgcolor=\"#c7daed\">";
   webPage += "<BODY onload='process()'>";
@@ -1077,6 +1086,10 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
 //  webPage += "<td><p><h3><a href=\"pl2s1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label7) + "<br></h3></p></td></tr>";
   webPage += "</tbody></table>";
   //webPage += "<p><a href=\"pl2s1Off\"><button class=\"btn btn-off\">OFF group 2</button></a></h3></p>";
+
+  }
+    else {webPage += "<p><h2><font color=\"red\" face=\"Arial\">!!! ERROR Init ExtBoards </font></h2></p>";}
+  
   webPage += "<p><a href ='/'>Return to the home page</a></p>";  
   server.send(200, "text/html", webPage);
   }
@@ -1101,7 +1114,7 @@ void handleRoot() {
   }
   
   Page += (String("<p>Initialize First ExtBoard: ") + brd1 + String("  Second ExtBoard: ") + brd2 + "</p>");
- 
+  if (brd1 == "Ok !" && brd2 == "Ok !") { 
   Page += "<h2>Please SELECT our WorkPlace: ";
   Page += "(Left - 1st, right - 2nd)</h2>";
   Page += F(
@@ -1109,7 +1122,7 @@ void handleRoot() {
     "<p><h1><a href='/place2'>2nd WorkPlace</a></h1></p>"
     "<p><a href='/wifi'>Config the wifi connection</a></p>"
     "<p><a href='/label'>Config name of Ant labels</a></p>");
-
+  }
     
     
     Page += SVG; //вывод логотипа
