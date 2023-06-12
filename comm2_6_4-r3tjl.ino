@@ -1,7 +1,7 @@
 
 /*
 Сервер для Wifi коммутатора на 2 рабочих места
-R3TJL V0.01 2023 г.
+R3TJL V0.02 2023 г. - управление низким уровнем !!!
 r3tjl@mail.ru
 */
 
@@ -109,21 +109,21 @@ void setup(void){
     
   // инициализация первой платы расширения
   pcf1.pinMode(P0, OUTPUT);
-  pcf1.digitalWrite(P0, LOW);
+  pcf1.digitalWrite(P0, HIGH);
   pcf1.pinMode(P1, OUTPUT);
-  pcf1.digitalWrite(P1, LOW);
+  pcf1.digitalWrite(P1, HIGH);
   pcf1.pinMode(P2, OUTPUT);
-  pcf1.digitalWrite(P2, LOW);
+  pcf1.digitalWrite(P2, HIGH);
   pcf1.pinMode(P3, OUTPUT);
-  pcf1.digitalWrite(P3, LOW);
+  pcf1.digitalWrite(P3, HIGH);
   pcf1.pinMode(P4, OUTPUT);
-  pcf1.digitalWrite(P4, LOW);
+  pcf1.digitalWrite(P4, HIGH);
   pcf1.pinMode(P5, OUTPUT);
-  pcf1.digitalWrite(P5, LOW);
+  pcf1.digitalWrite(P5, HIGH);
   pcf1.pinMode(P6, OUTPUT);
-  pcf1.digitalWrite(P6, LOW);
+  pcf1.digitalWrite(P6, HIGH);
   pcf1.pinMode(P7, OUTPUT);
-  pcf1.digitalWrite(P7, LOW);
+  pcf1.digitalWrite(P7, HIGH);
   
   Serial.begin(115200);
   Serial.println();
@@ -145,21 +145,21 @@ void setup(void){
 
   // инициализация второй платы расширения
   pcf2.pinMode(P0, OUTPUT);
-  pcf2.digitalWrite(P0, LOW);
+  pcf2.digitalWrite(P0, HIGH);
   pcf2.pinMode(P1, OUTPUT);
-  pcf2.digitalWrite(P1, LOW);
+  pcf2.digitalWrite(P1, HIGH);
   pcf2.pinMode(P2, OUTPUT);
-  pcf2.digitalWrite(P2, LOW);
+  pcf2.digitalWrite(P2, HIGH);
   pcf2.pinMode(P3, OUTPUT);
-  pcf2.digitalWrite(P3, LOW);
+  pcf2.digitalWrite(P3, HIGH);
   pcf2.pinMode(P4, OUTPUT);
-  pcf2.digitalWrite(P4, LOW);
+  pcf2.digitalWrite(P4, HIGH);
   pcf2.pinMode(P5, OUTPUT);
-  pcf2.digitalWrite(P5, LOW);
+  pcf2.digitalWrite(P5, HIGH);
   pcf2.pinMode(P6, OUTPUT);
-  pcf2.digitalWrite(P6, LOW);
+  pcf2.digitalWrite(P6, HIGH);
   pcf2.pinMode(P7, OUTPUT);
-  pcf2.digitalWrite(P7, LOW);
+  pcf2.digitalWrite(P7, HIGH);
   
   Serial.println();
 
@@ -241,7 +241,7 @@ void setup(void){
       stat[0] = '1';
       currentlabel1=String(label0);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      brd11 = pcf1.digitalWrite(P0, HIGH);
+      brd11 = pcf1.digitalWrite(P0, LOW);
     }
     webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
@@ -264,7 +264,7 @@ void setup(void){
       stat[1] = '1';
       currentlabel1=String(label1);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      brd11 = pcf1.digitalWrite(P1, HIGH);
+      brd11 = pcf1.digitalWrite(P1, LOW);
     }  
     webPage += "<script> document.location.href = \"/place1\"</script>";
     server.send(200, "text/html", webPage);
@@ -276,7 +276,7 @@ void setup(void){
     {
       turnOffPlace1();
       stat[2] = '1';
-      brd11 = pcf1.digitalWrite(P2, HIGH);
+      brd11 = pcf1.digitalWrite(P2, LOW);
       currentlabel1=String(label2);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -290,7 +290,7 @@ void setup(void){
     {
       turnOffPlace1();
       stat[3] = '1';
-      brd11 = pcf1.digitalWrite(P3, HIGH);
+      brd11 = pcf1.digitalWrite(P3, LOW);
       currentlabel1=String(label3);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -304,7 +304,7 @@ void setup(void){
     {
       turnOffPlace1();
       stat[4] = '1';
-      brd11 = pcf1.digitalWrite(P4, HIGH);
+      brd11 = pcf1.digitalWrite(P4, LOW);
       currentlabel1=String(label4);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -318,8 +318,8 @@ void setup(void){
     {
       turnOffPlace1();
       stat[5] = '1';
-      brd11 = pcf1.digitalWrite(P5, HIGH);
-      brd11 = pcf1.digitalWrite(P6, HIGH);
+      brd11 = pcf1.digitalWrite(P5, LOW);
+      brd11 = pcf1.digitalWrite(P6, LOW);
       currentlabel1=String(label5);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -333,8 +333,8 @@ void setup(void){
     {
       turnOffPlace1();
       stat[6] = '1';
-      brd11 = pcf1.digitalWrite(P5, HIGH);
-      brd11 = pcf1.digitalWrite(P7, HIGH);
+      brd11 = pcf1.digitalWrite(P5, LOW);
+      brd11 = pcf1.digitalWrite(P7, LOW);
       currentlabel1=String(label6);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -348,8 +348,8 @@ void setup(void){
     {
       turnOffPlace1();
       stat[7] = '1';
-      brd11 = pcf1.digitalWrite(P5, HIGH);
-      brd22 = pcf2.digitalWrite(P6, HIGH);
+      brd11 = pcf1.digitalWrite(P5, LOW);
+      brd22 = pcf2.digitalWrite(P6, LOW);
       currentlabel1=String(label7);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -362,8 +362,8 @@ void setup(void){
     {
       turnOffPlace1();
       stat[8] = '1';
-      brd11 = pcf1.digitalWrite(P5, HIGH);
-      brd22 = pcf2.digitalWrite(P7, HIGH);
+      brd11 = pcf1.digitalWrite(P5, LOW);
+      brd22 = pcf2.digitalWrite(P7, LOW);
       currentlabel1=String(label8);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -381,7 +381,7 @@ void setup(void){
       stat[0] = '2';
       currentlabel2=String(label0);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      brd22 = pcf2.digitalWrite(P0, HIGH);
+      brd22 = pcf2.digitalWrite(P0, LOW);
     }
     webPage += "<script> document.location.href = \"/place2\"</script>";
     server.send(200, "text/html", webPage);
@@ -404,7 +404,7 @@ void setup(void){
       stat[1] = '2';
       currentlabel2=String(label1);
       currentlabel=currentlabel1 + " / " + currentlabel2;
-      brd22 = pcf2.digitalWrite(P1, HIGH);
+      brd22 = pcf2.digitalWrite(P1, LOW);
     }
     webPage += "<script> document.location.href = \"/place2\"</script>";
     server.send(200, "text/html", webPage);
@@ -416,7 +416,7 @@ void setup(void){
     {
       turnOffPlace2();
       stat[2] = '2';
-      brd22 = pcf2.digitalWrite(P2, HIGH);
+      brd22 = pcf2.digitalWrite(P2, LOW);
       currentlabel2=String(label2);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -430,7 +430,7 @@ void setup(void){
     {
       turnOffPlace2();
       stat[3] = '2';
-      brd22 = pcf2.digitalWrite(P3, HIGH);
+      brd22 = pcf2.digitalWrite(P3, LOW);
       currentlabel2=String(label3);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -444,7 +444,7 @@ void setup(void){
     {
       turnOffPlace2();
       stat[4] = '2';
-      brd22 = pcf2.digitalWrite(P4, HIGH);
+      brd22 = pcf2.digitalWrite(P4, LOW);
       currentlabel2=String(label4);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -458,8 +458,8 @@ void setup(void){
     {
       turnOffPlace2();
       stat[5] = '2';
-      brd22 = pcf2.digitalWrite(P5, HIGH);
-      brd11 = pcf1.digitalWrite(P6, HIGH);
+      brd22 = pcf2.digitalWrite(P5, LOW);
+      brd11 = pcf1.digitalWrite(P6, LOW);
       currentlabel2=String(label5);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -473,8 +473,8 @@ void setup(void){
     {
       turnOffPlace2();
       stat[6] = '2';
-      brd22 = pcf2.digitalWrite(P5, HIGH);
-      brd11 = pcf1.digitalWrite(P7, HIGH);
+      brd22 = pcf2.digitalWrite(P5, LOW);
+      brd11 = pcf1.digitalWrite(P7, LOW);
       currentlabel2=String(label6);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -488,8 +488,8 @@ void setup(void){
     {
       turnOffPlace2();
       stat[7] = '2';
-      brd22 = pcf2.digitalWrite(P5, HIGH);
-      brd22 = pcf2.digitalWrite(P6, HIGH);
+      brd22 = pcf2.digitalWrite(P5, LOW);
+      brd22 = pcf2.digitalWrite(P6, LOW);
       currentlabel2=String(label7);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -502,8 +502,8 @@ void setup(void){
     {
       turnOffPlace2();
       stat[8] = '2';
-      brd22 = pcf2.digitalWrite(P5, HIGH);
-      brd22 = pcf2.digitalWrite(P7, HIGH);
+      brd22 = pcf2.digitalWrite(P5, LOW);
+      brd22 = pcf2.digitalWrite(P7, LOW);
       currentlabel2=String(label8);
       currentlabel=currentlabel1 + " / " + currentlabel2;
     }
@@ -1126,7 +1126,7 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
   //webPage += "<p><a href=\"pl2s1Off\"><button class=\"btn btn-off\">OFF group 2</button></a></h3></p>";
 
   }
-    else 
+    else
       {
         webPage += "<p><h2><font color=\"red\" face=\"Arial\">!!! ERROR Init ExtBoards </font></h2></p>";
         webPage += "<p><a href =\"softreset\">RESET controller</a></p>";
@@ -1440,30 +1440,30 @@ void turnOffPlace1()
 {
   currentlabel1="OFF";
   //for (uint8_t i = 0; i < 8; i++) {
-  if (stat[0] != '2') {stat[0]='0';  brd11 = pcf1.digitalWrite(P0, LOW);}
-  if (stat[1] != '2') {stat[1]='0';  brd11 = pcf1.digitalWrite(P1, LOW);}
-  if (stat[2] != '2') {stat[2]='0';  brd11 = pcf1.digitalWrite(P2, LOW);}
-  if (stat[3] != '2') {stat[3]='0';  brd11 = pcf1.digitalWrite(P3, LOW);}    
-  if (stat[4] != '2') {stat[4]='0';  brd11 = pcf1.digitalWrite(P4, LOW);}    
-  if (stat[5] != '2') {stat[5]='0';  brd11 = pcf1.digitalWrite(P5, LOW); brd11 = pcf1.digitalWrite(P6, LOW); }    
-  if (stat[6] != '2') {stat[6]='0';  brd11 = pcf1.digitalWrite(P5, LOW); brd11 = pcf1.digitalWrite(P7, LOW); }    
-  if (stat[7] != '2') {stat[7]='0';  brd11 = pcf1.digitalWrite(P5, LOW); brd22 = pcf2.digitalWrite(P6, LOW); }        
-  if (stat[8] != '2') {stat[8]='0';  brd11 = pcf1.digitalWrite(P5, LOW); brd22 = pcf2.digitalWrite(P7, LOW); }    
+  if (stat[0] != '2') {stat[0]='0';  brd11 = pcf1.digitalWrite(P0, HIGH);}
+  if (stat[1] != '2') {stat[1]='0';  brd11 = pcf1.digitalWrite(P1, HIGH);}
+  if (stat[2] != '2') {stat[2]='0';  brd11 = pcf1.digitalWrite(P2, HIGH);}
+  if (stat[3] != '2') {stat[3]='0';  brd11 = pcf1.digitalWrite(P3, HIGH);}    
+  if (stat[4] != '2') {stat[4]='0';  brd11 = pcf1.digitalWrite(P4, HIGH);}    
+  if (stat[5] != '2') {stat[5]='0';  brd11 = pcf1.digitalWrite(P5, HIGH); brd11 = pcf1.digitalWrite(P6, HIGH); }    
+  if (stat[6] != '2') {stat[6]='0';  brd11 = pcf1.digitalWrite(P5, HIGH); brd11 = pcf1.digitalWrite(P7, HIGH); }    
+  if (stat[7] != '2') {stat[7]='0';  brd11 = pcf1.digitalWrite(P5, HIGH); brd22 = pcf2.digitalWrite(P6, HIGH); }        
+  if (stat[8] != '2') {stat[8]='0';  brd11 = pcf1.digitalWrite(P5, HIGH); brd22 = pcf2.digitalWrite(P7, HIGH); }    
 } 
 
 void turnOffPlace2()
 {
   currentlabel2="OFF";
   
-  if (stat[0] != '1') {stat[0]='0';  brd22 = pcf2.digitalWrite(P0, LOW);}
-  if (stat[1] != '1') {stat[1]='0';  brd22 = pcf2.digitalWrite(P1, LOW);}
-  if (stat[2] != '1') {stat[2]='0';  brd22 = pcf2.digitalWrite(P2, LOW);}
-  if (stat[3] != '1') {stat[3]='0';  brd22 = pcf2.digitalWrite(P3, LOW);}    
-  if (stat[4] != '1') {stat[4]='0';  brd22 = pcf2.digitalWrite(P4, LOW);}    
-  if (stat[5] != '1') {stat[5]='0';  brd22 = pcf2.digitalWrite(P5, LOW); brd11 = pcf1.digitalWrite(P6, LOW); }    
-  if (stat[6] != '1') {stat[6]='0';  brd22 = pcf2.digitalWrite(P5, LOW); brd11 = pcf1.digitalWrite(P7, LOW); }    
-  if (stat[7] != '1') {stat[7]='0';  brd22 = pcf2.digitalWrite(P5, LOW); brd22 = pcf2.digitalWrite(P6, LOW); }        
-  if (stat[8] != '1') {stat[8]='0';  brd22 = pcf2.digitalWrite(P5, LOW); brd22 = pcf2.digitalWrite(P7, LOW); }    
+  if (stat[0] != '1') {stat[0]='0';  brd22 = pcf2.digitalWrite(P0, HIGH);}
+  if (stat[1] != '1') {stat[1]='0';  brd22 = pcf2.digitalWrite(P1, HIGH);}
+  if (stat[2] != '1') {stat[2]='0';  brd22 = pcf2.digitalWrite(P2, HIGH);}
+  if (stat[3] != '1') {stat[3]='0';  brd22 = pcf2.digitalWrite(P3, HIGH);}    
+  if (stat[4] != '1') {stat[4]='0';  brd22 = pcf2.digitalWrite(P4, HIGH);}    
+  if (stat[5] != '1') {stat[5]='0';  brd22 = pcf2.digitalWrite(P5, HIGH); brd11 = pcf1.digitalWrite(P6, HIGH); }    
+  if (stat[6] != '1') {stat[6]='0';  brd22 = pcf2.digitalWrite(P5, HIGH); brd11 = pcf1.digitalWrite(P7, HIGH); }    
+  if (stat[7] != '1') {stat[7]='0';  brd22 = pcf2.digitalWrite(P5, HIGH); brd22 = pcf2.digitalWrite(P6, HIGH); }        
+  if (stat[8] != '1') {stat[8]='0';  brd22 = pcf2.digitalWrite(P5, HIGH); brd22 = pcf2.digitalWrite(P7, HIGH); }    
   
 } 
 
