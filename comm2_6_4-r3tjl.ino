@@ -1,7 +1,7 @@
 
 /*
 Сервер для Wifi коммутатора на 2 рабочих места
-R3TJL V0.02 2023 г. - управление низким уровнем !!!
+R3TJL V1.00 2023 г. - управление низким уровнем !!!
 r3tjl@mail.ru
 */
 
@@ -45,16 +45,6 @@ String ourPage = "";
 String Page3="";
 String javaScript, XML, SVG;
 
-/*
-int gpio0_pin = 16; //это надо перепрописывать
-int gpio1_pin = 5;
-int gpio2_pin = 4;
-int gpio3_pin = 0;
-int gpio4_pin = 2;
-int gpio5_pin = 14;
-int gpio6_pin = 12;
-int gpio7_pin = 13;
-*/
 int gpio8_pin = 2; //пин зажигает светодиод при подключении к wifi
 
 
@@ -82,28 +72,9 @@ PCF8574 pcf2(0x21); // вторая плата расширения
 
 void setup(void){
   delay(100);
-/* 
-  pinMode(gpio0_pin, OUTPUT);
-  digitalWrite(gpio0_pin, LOW);
-  pinMode(gpio1_pin, OUTPUT);
-  digitalWrite(gpio1_pin, LOW);
-  pinMode(gpio2_pin, OUTPUT);
-  digitalWrite(gpio2_pin, LOW);
-  pinMode(gpio3_pin, OUTPUT);
-  digitalWrite(gpio3_pin, LOW);
-  pinMode(gpio4_pin, OUTPUT);
-  digitalWrite(gpio4_pin, LOW);
-  pinMode(gpio5_pin, OUTPUT);
-  digitalWrite(gpio5_pin, LOW);
-  pinMode(gpio6_pin, OUTPUT);
-  digitalWrite(gpio6_pin, LOW);
-  pinMode(gpio7_pin, OUTPUT);
-  digitalWrite(gpio7_pin, LOW);
- */
   pinMode(gpio8_pin, OUTPUT);
   digitalWrite(gpio8_pin, HIGH);
  
-
   Wire.pins(4,5); //пины интерфейса i2c (4,5)
   Wire.begin(4,5);
     
@@ -177,8 +148,6 @@ void setup(void){
     brd22 = false;
   }
   delay(50);
-
-
   
   Serial.println();
   Serial.print("Configuring access point...");
@@ -518,140 +487,10 @@ void setup(void){
     softreset();
     handleRoot();
   });  
-/*  Этот блок нужен для страницы принудительного включения, его убираем из прошивки   
-  server.on("/soc0On", [](){
-    stat[0] = '1';
-    digitalWrite(gpio0_pin, HIGH);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc0Off", [](){
-    digitalWrite(gpio0_pin, LOW);
-    stat[0] = '0';
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc1On", [](){
-    stat[1] = '1';
-    digitalWrite(gpio1_pin, HIGH);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc1Off", [](){
-    stat[1] = '0';
-    digitalWrite(gpio1_pin, LOW);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc2On", [](){
-    stat[2] = '1';
-    digitalWrite(gpio2_pin, HIGH);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc2Off", [](){
-    stat[2] = '0';
-    digitalWrite(gpio2_pin, LOW);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc3On", [](){
-    stat[3] = '1';
-    digitalWrite(gpio3_pin, HIGH);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc3Off", [](){
-    stat[3] = '0';
-    digitalWrite(gpio3_pin, LOW);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc4On", [](){
-    stat[4] = '1';
-    digitalWrite(gpio4_pin, HIGH);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc4Off", [](){
-    stat[4] = '0';
-    digitalWrite(gpio4_pin, LOW);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc5On", [](){
-    stat[5] = '1';
-    digitalWrite(gpio5_pin, HIGH);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc5Off", [](){
-    stat[5] = '0';
-    digitalWrite(gpio5_pin, LOW);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc6On", [](){
-    stat[6] = '1';
-    digitalWrite(gpio6_pin, HIGH);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc6Off", [](){
-    stat[6] = '0';
-    digitalWrite(gpio6_pin, LOW);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc7On", [](){
-    stat[7] = '1';
-    digitalWrite(gpio7_pin, HIGH);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  server.on("/soc7Off", [](){
-    stat[7] = '0';
-    digitalWrite(gpio7_pin, LOW);
-    CheckStat();
-    webPage2 += "<script> document.location.href = \"/toggle\"</script>";
-    server.send(200, "text/html", webPage2);
-    handleToggle();
-  });
-  --------- этот блок убираем */
+
   server.begin();
   Serial.println("HTTP server started");
   //добавил сброс всего
-  //turnOffAll();
   turnOffPlace1();
   turnOffPlace2();
 }
@@ -793,75 +632,7 @@ void BuildSVG()
 "<path d=\"M886 175 c4 -8 11 -15 16 -15 6 0 5 6 -2 15 -7 8 -14 15 -16 15 -2 0 -1 -7 2 -15z\"/>"
 "</g>"
 "</svg>");
-
- /*
- SVG = "<svg version=\"1.0\" xmlns=\"http://www.w3.org/2000/svg\"";
- SVG +=F("width=\"99.000000pt\" height=\"35.000000pt\" viewBox=\"0 0 790.000000 284.000000\""
- "preserveAspectRatio=\"xMidYMid meet\">"
-"<g transform=\"translate(0.000000,284.000000) scale(0.100000,-0.100000)\""
-"fill=\"#000000\" stroke=\"none\">"
-"<path d=\"M0 1420 l0 -1420 910 0 910 0 0 1420 0 1420 -910 0 -910 0 0 -1420z "
-"m1620 0 l0 -1220 -710 0 -710 0 0 1220 0 1220 710 0 710 0 0 -1220z\"/>"
-"<path d=\"M392 1983 l3 -458 103 -3 102 -3 0 161 0 160 270 0 c176 0 277 -4 "
-"293 -11 39 -18 47 -50 47 -184 l0 -125 106 0 106 0 -4 153 c-3 173 -15 206 "
-"-80 241 l-35 20 31 21 c69 46 101 130 93 241 -8 110 -54 181 -142 221 -36 16 "
-"-81 18 -468 21 l-427 3 2 -458z m789 244 c48 -37 53 -115 10 -158 l-29 -29 "
-"-281 0 -281 0 0 100 0 100 283 0 c206 -1 286 -4 298 -13z\"/>"
-"<path d=\"M394 1294 c-4 -14 -4 -164 -1 -332 4 -275 7 -314 25 -372 25 -76 71 "
-"-127 147 -162 49 -23 57 -23 453 -26 l402 -3 0 460 0 461 -105 0 -105 0 0 "
-"-366 0 -366 -258 4 c-375 5 -350 -27 -351 451 l-1 277 -100 0 c-99 0 -100 0 "
-"-106 -26z\"/>"
-"<path d=\"M2210 1980 l0 -460 100 0 100 0 0 315 c0 173 3 315 6 315 4 0 62 -52 "
-"131 -116 123 -116 124 -117 145 -98 12 11 69 63 127 117 l106 98 3 -315 2 "
-"-316 100 0 100 0 0 460 0 460 -56 0 c-96 0 -129 -16 -233 -114 -53 -50 -113 "
-"-106 -133 -125 l-38 -35 -119 117 c-138 135 -175 156 -273 157 l-68 0 0 -460z\"/>"
-"<path d=\"M3530 2433 c-102 -17 -166 -63 -197 -143 -15 -39 -17 -93 -21 -407 "
-"l-4 -363 106 0 106 0 0 155 0 155 250 0 250 0 0 -155 0 -155 105 0 105 0 0 "
-"460 0 460 -337 -1 c-186 -1 -349 -4 -363 -6z m490 -303 l0 -110 -250 0 -250 0 "
-"1 78 c1 142 -1 141 282 142 l217 0 0 -110z\"/>"
-"<path d=\"M4410 1980 l0 -461 353 3 c400 5 420 8 481 79 55 64 61 104 61 379 0 "
-"275 -6 315 -61 379 -61 71 -81 74 -481 79 l-353 3 0 -461z m644 249 c14 -7 30 "
-"-25 36 -42 13 -39 13 -375 0 -414 -17 -48 -41 -53 -265 -53 l-205 0 0 260 0 "
-"260 205 0 c131 0 213 -4 229 -11z\"/>"
-"<path d=\"M5680 2433 c-106 -18 -176 -72 -200 -156 -17 -60 -25 -449 -11 -533 "
-"15 -83 41 -136 83 -167 66 -48 84 -51 426 -55 l322 -3 0 100 0 101 -292 0 "
-"c-161 0 -298 4 -305 8 -19 12 -33 60 -33 113 l0 49 250 0 250 0 0 95 0 95 "
-"-250 0 -250 0 0 44 c0 49 15 96 33 108 7 4 137 8 290 8 l277 0 0 100 0 100 "
-"-282 -1 c-156 -1 -294 -4 -308 -6z\"/>"
-"<path d=\"M6580 1980 l0 -460 105 0 105 0 0 460 0 460 -105 0 -105 0 0 -460z\"/>"
-"<path d=\"M6980 1980 l0 -460 100 0 100 0 2 302 3 302 101 -125 c55 -68 140 "
-"-173 188 -234 173 -216 202 -236 339 -243 l87 -4 0 461 0 461 -100 0 -100 0 0 "
-"-301 c0 -187 -4 -298 -9 -294 -9 5 -48 52 -310 377 -56 70 -119 141 -139 158 "
-"-49 40 -112 60 -194 60 l-68 0 0 -460z\"/>"
-"<path d=\"M2217 1314 c-4 -4 -7 -211 -7 -461 l0 -453 105 0 105 0 0 161 0 160 "
-"226 -3 226 -3 24 -28 c23 -27 24 -35 24 -158 l0 -129 105 0 105 0 0 143 c0 "
-"166 -14 213 -75 248 l-36 22 34 23 c19 13 45 45 58 71 20 40 24 63 24 143 0 "
-"105 -16 149 -72 202 -62 59 -84 62 -478 66 -198 2 -364 0 -368 -4z m672 -209 "
-"c34 -17 41 -33 41 -89 0 -33 -6 -49 -26 -70 l-27 -26 -228 0 -229 0 0 100 0 "
-"100 220 0 c174 0 227 -3 249 -15z\"/>"
-"<path d=\"M3310 992 c0 -191 5 -353 11 -388 16 -90 48 -137 116 -171 l58 -28 "
-"368 -3 367 -3 0 460 0 461 -105 0 -105 0 0 -366 0 -366 -217 4 c-120 3 -226 8 "
-"-236 12 -44 20 -47 47 -47 391 l0 325 -105 0 -105 0 0 -328z\"/>"
-"<path d=\"M4625 1315 c-5 -2 -26 -6 -46 -9 -54 -9 -126 -62 -157 -115 -25 -42 "
-"-27 -55 -27 -146 0 -83 4 -107 22 -140 28 -52 57 -79 118 -107 47 -22 63 -23 "
-"295 -26 135 -1 255 -5 268 -7 62 -14 82 -90 38 -142 l-24 -28 -336 -3 -336 -3 "
-"0 -95 0 -95 368 3 c349 3 369 4 412 24 101 47 145 124 145 254 0 137 -51 217 "
-"-164 262 -51 19 -79 22 -306 25 -289 5 -295 6 -295 77 0 28 6 48 17 57 12 11 "
-"86 15 342 19 l326 5 3 75 c2 41 0 85 -3 97 l-5 23 -323 -1 c-177 0 -326 -2 "
-"-332 -4z\"/>"
-"<path d=\"M5653 1306 c-130 -32 -201 -138 -191 -287 6 -82 46 -161 99 -196 70 "
-"-46 116 -53 349 -53 126 0 230 -4 247 -10 49 -17 68 -84 38 -127 -26 -37 -76 "
-"-43 -377 -43 l-288 0 0 -95 0 -95 322 0 c370 0 407 5 482 72 58 50 80 109 81 "
-"208 0 93 -17 141 -67 196 -71 77 -112 86 -397 92 -221 4 -245 6 -262 23 -26 "
-"26 -25 83 1 109 19 19 33 20 320 20 l300 0 0 100 0 100 -302 -1 c-207 0 -319 "
-"-5 -355 -13z\"/>"
-"<path d=\"M6580 860 l0 -460 105 0 105 0 0 460 0 460 -105 0 -105 0 0 -460z\"/>"
-"<path d=\"M7189 1310 c-93 -16 -158 -67 -190 -150 -10 -26 -14 -125 -17 -397 "
-"l-3 -363 105 0 106 0 0 155 0 155 250 0 250 0 0 -155 0 -155 105 0 105 0 0 "
-"460 0 460 -332 -1 c-183 -1 -354 -5 -379 -9z m501 -300 l0 -110 -250 0 -250 0 "
-"0 75 c0 82 12 118 44 133 12 6 111 11 239 11 l217 1 0 -110z\"/>"
-"</g>"
-"</svg>"); */
+ 
 }
 
 void buildJavascript() {
@@ -906,44 +677,6 @@ void buildXML() {
   XML += "</response>";
 }
 
-//void handleToggle () //старый интерфейс. оставим потом для проверки каждого канала
-//{
-//  buildJavascript();
-//  webPage2 = "<!DOCTYPE HTML> <html> <head> <title>WI-FI Remote Console</title>";
-//  //webPage += "<meta http-equiv=\'refresh\' content=\'3\'>";
-//  webPage2 += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-//  webPage2 += "<style type=\"text/css\">";
-//  webPage2 += ".btn {background-color: #4CAF50; border: none; color: white; padding: 8px 16px; text-align: center; text-decoration: none; display: inline-block; font-size: 12px; margin: 1px 2px; -webkit-transition-duration: 0.4s; transition-duration: 0.4s; cursor: pointer;}";
-//  webPage2 += ".btn-on {background-color: white; color: black; border: 2px solid #4CAF50;}";
-//  webPage2 += ".btn-off {background-color: white; color: black; border: 2px solid #f44336;}";
-//  webPage2 += ".btn-on:active {background: green;}";
-//  webPage2 += ".btn-off:active {background: red;}";
-//  webPage2 += "</style> </head>";
-//  webPage2 += javaScript;
-//  webPage2 += "<body bgcolor=\"#c7daed\">";
-//  /*webPage2 += "<BODY onload='process()'>";
-//  webPage2 += "<p><font color=\"red\" face=\"Arial\"><h2> OUT - <A id='runtime'> </A></font></h2></p>";
-//  webPage2 += "</BODY>";*/
-//  if (stat[0] == '1') {webPage2 += "<p><font color=\"red\" face=\"Arial\"><h3><a href=\"soc0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc0Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label0) + "</font><br>";}
-//    else {webPage2 += "<p><h3><a href=\"soc0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc0Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label0) + "<br>";} 
-//  if (stat[1] == '1') webPage2 += "<p><font color=\"red\" face=\"Arial\"><a href=\"soc1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc1Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label1) + "</font><br>";
-//    else webPage2 += "<p><a href=\"soc1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc1Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label1) + "<br>";
-//  if (stat[2] == '1') webPage2 += "<p><font color=\"red\" face=\"Arial\"><a href=\"soc2On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc2Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label2) + "</font><br>";
-//    else webPage2 += "<p><a href=\"soc2On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc2Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label2) + "<br>";
-//  if (stat[3] == '1') webPage2 += "<p><font color=\"red\" face=\"Arial\"><a href=\"soc3On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc3Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label3) + "</font><br>";
-//    else webPage2 += "<p><a href=\"soc3On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc3Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label3) + "<br>";
-//  if (stat[4] == '1') webPage2 += "<p><font color=\"red\" face=\"Arial\"><a href=\"soc4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc4Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label4) + "</font><br>";
-//    else webPage2 += "<p><a href=\"soc4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc4Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label4) + "<br>";
-//  if (stat[5] == '1') webPage2 += "<p><font color=\"red\" face=\"Arial\"><a href=\"soc5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc5Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label5) + "</font><br>";
-//    else webPage2 += "<p><a href=\"soc5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc5Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label5) + "<br>";
-//  if (stat[6] == '1') webPage2 += "<p><font color=\"red\" face=\"Arial\"><a href=\"soc6On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc6Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label6) + "</font><br>";
-//    else webPage2 += "<p><a href=\"soc6On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc6Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label6) + "<br>";
-//  if (stat[7] == '1') webPage2 += "<p><font color=\"red\" face=\"Arial\"><a href=\"soc7On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc7Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label7) + "</font></h3></p>"; 
-//    else webPage2 += "<p><a href=\"soc7On\"><button class=\"btn btn-on\">ON</button></a>&nbsp;<a href=\"soc7Off\"><button class=\"btn btn-off\">OFF</button></a> " + String(label7) + "</h3></p>";
-//  webPage2 += "<p><a href ='/'>Return to the home page</a></p>";
-//  server.send(200, "text/html", webPage2);
-//  }
-
 void handlePlace1()  //Web-интерфейс 1-го рабочего места
 {
   buildJavascript();
@@ -970,21 +703,15 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
   webPage += "<body bgcolor=\"#c7daed\">";
   webPage += "<BODY onload='process()'>";
   /*webPage += "<h1>Remote console</h1>";*/
-  //webPage += "<p><font color=\"red\" face=\"Arial\"><h2>" + currentlabel + "</font></h2></p>";                        //<font color=\"red\" face=\"Arial\"><a id='runtime'></h2></a></font>
   webPage += "<p><h2><font color=\"green\" face=\"Arial\"> Our: </font><font color=\"red\" face=\"Arial\">First (1) </font><font color=\"green\" face=\"Arial\">WorkPlace!!! </font></h2></p>";
   webPage += "</BODY>";
-    //webPage += "<p><font color=\"red\" face=\"Arial\"><h2>Commutator 1: " + currentlabel1 + "</font></h2></p>";
   webPage += "<table border=\"1\" width=\"600\"><tbody>";
   
   // Ближняя группа антенн (5 выходов)
   webPage += "<tr><td colspan=2><p><h2><font color=\"red\">HOUSE Antenna'S Group </font></td></tr>"; 
-  //webPage += "<td>&nbsp; <h3><button class=\"btn btn-off\">All 1st Ant OFF</button></h3><br></td></tr>";
-  
-  //stat[2] = '2'; // ПОТОМ УБРАТЬ !!!!!
     
   if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label0) + "<br></td>";}
     else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label0) + "<br></td>";}
-    //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label0) + "<br></td>";} 
   if (stat[1] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label1) + "<br></td></tr>";}
     else if (stat[1] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label1) + "<br></td></tr>";}
@@ -1003,8 +730,7 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
 
  // Удаленная группа антенн (4 выхода) 
   webPage += "<tr><td colspan=2><p><h2><font color=\"red\">REMOTE Antenna'S Group </font></td></tr>"; 
-  //webPage += "<td>&nbsp; <h3></h3><br></td></tr>"; 
- 
+   
   if (stat[5] == '1') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label5) + "<br></td>";}
     else if (stat[5] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label5) + "<br></td>";}
         else if (stat[6] == '2' || stat[7] == '2' || stat [8] == '2') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button>&nbsp; " + String(label5) + "<br></td>";}
@@ -1018,17 +744,11 @@ void handlePlace1()  //Web-интерфейс 1-го рабочего места
         else if (stat[5] == '2' || stat[6] == '2' || stat [8] == '2') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label7) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl1s7On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label7) + "<br></td>";} 
   
-  // ДОДЕЛАТЬ по 8 (9-му) выходу коммутатора - ссылаться на правильную страницу
   if (stat[8] == '1') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label8) + "<br></td></tr>";}
     else if (stat[8] == '2') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label8) + "<br></td></tr>";}
         else if (stat[5] == '2' || stat[6] == '2' || stat [7] == '2') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button></a>&nbsp; " + String(label8) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl1s8On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label8) + "<br></td></tr>";} 
-//  webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";
-//  webPage += "<td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label5) + "<br></td></tr>";
-//  webPage += "<tr><td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label6) + "<br></td>";
-//  webPage += "<td><p><h3><a href=\"pl2s1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label7) + "<br></h3></p></td></tr>";
   webPage += "</tbody></table>";
-  //webPage += "<p><a href=\"pl2s1Off\"><button class=\"btn btn-off\">OFF group 2</button></a></h3></p>";
   }
   else 
     {
@@ -1055,8 +775,7 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
   
   // класс "btn-blk2" будет у неактивных антенн дальней группы, если одна из этих антенн активирована другим рабочим местом (и обозхначена классом "btn-blk")
     
-  //webPage += ".btn-green {background-color: green; color: black; border: 2px solid #f44336;}";
-  webPage += ".btn-on:active {background: green;}";
+    webPage += ".btn-on:active {background: green;}";
   webPage += ".btn-off:active {background: red;}";
   webPage += "</style> </head>";
 
@@ -1066,19 +785,15 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
   webPage += "<body bgcolor=\"#c7daed\">";
   webPage += "<BODY onload='process()'>";
   /*webPage += "<h1>Remote console</h1>";*/
-  //webPage += "<p><font color=\"red\" face=\"Arial\"><h2>" + currentlabel + "</font></h2></p>";                        //<font color=\"red\" face=\"Arial\"><a id='runtime'></h2></a></font>
   webPage += "<p><h2><font color=\"green\" face=\"Arial\"> Our: </font><font color=\"red\" face=\"Arial\">Second (2) </font><font color=\"green\" face=\"Arial\">WorkPlace!!! </font></h2></p>";
   webPage += "</BODY>";
-    //webPage += "<p><font color=\"red\" face=\"Arial\"><h2>Commutator 1: " + currentlabel1 + "</font></h2></p>";
   webPage += "<table border=\"1\" width=\"600\"><tbody>";
   
   // Ближняя группа антенн (5 выходов)
   webPage += "<tr><td colspan=2><p><h2><font color=\"red\">HOUSE Antenna'S Group </font></td></tr>"; 
-  //webPage += "<td>&nbsp; <h3><button class=\"btn btn-off\">All 1st Ant OFF</button></h3><br></td></tr>";
   
   if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label0) + "<br></td>";}
     else if (stat[0] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label0) + "<br></td>";}
-    //else if (stat[0] == '2') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\" disabled>BLK</button></a>&nbsp; " + String(label0) + "<br></td>";}
           else {webPage += "<tr><td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label0) + "<br></td>";} 
   if (stat[1] == '2') {webPage += "<td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label1) + "<br></td></tr>";}
     else if (stat[1] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label1) + "<br></td></tr>";}
@@ -1097,10 +812,7 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
 
  // Удаленная группа антенн (4 выхода) 
   webPage += "<tr><td colspan=2><p><h2><font color=\"red\">REMOTE Antenna'S Group </font></td></tr>"; 
-  //webPage += "<td>&nbsp; <h3></h3><br></td></tr>"; 
- 
-  // НАДО ДУМАТЬ - КАК обозначить серым все неактивные кнопки из группы малого коммутатора
-  
+    
   if (stat[5] == '2') {webPage += "<tr><td><p><font color=\"green\" face=\"Arial\"><h3><button class=\"btn btn-green\">ON</button>&nbsp; " + String(label5) + "<br></td>";}
     else if (stat[5] == '1') {webPage += "<tr><td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label5) + "<br></td>";}
         else if (stat[6] == '1' || stat[7] == '1' || stat [8] == '1') {webPage += "<tr><td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button>&nbsp; " + String(label5) + "<br></td>";}
@@ -1118,12 +830,8 @@ void handlePlace2()  //Web-интерфейс 2-го рабочего места
     else if (stat[8] == '1') {webPage += "<td><p><font color=\"red\" face=\"Arial\"><h3><button class=\"btn btn-blk\">BLK</button>&nbsp; " + String(label8) + "<br></td></tr>";}
         else if (stat[5] == '1' || stat[6] == '1' || stat [7] == '1') {webPage += "<td><p><font color=\"gray\" face=\"Arial\"><h3><button class=\"btn btn-blk2\">BLK</button>&nbsp; " + String(label8) + "<br></td></tr>";}
           else {webPage += "<td><p><h3><a href=\"pl2s8On\"><button class=\"btn btn-on\">OFF</button></a>&nbsp; " + String(label8) + "<br></td></tr>";} 
-//  webPage += "<tr><td><p><h3><a href=\"pl1s4On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label4) + "<br></td>";
-//  webPage += "<td><p><h3><a href=\"pl1s5On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label5) + "<br></td></tr>";
-//  webPage += "<tr><td><p><h3><a href=\"pl2s0On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label6) + "<br></td>";
-//  webPage += "<td><p><h3><a href=\"pl2s1On\"><button class=\"btn btn-on\">ON</button></a>&nbsp; " + String(label7) + "<br></h3></p></td></tr>";
+
   webPage += "</tbody></table>";
-  //webPage += "<p><a href=\"pl2s1Off\"><button class=\"btn btn-off\">OFF group 2</button></a></h3></p>";
 
   }
     else
@@ -1418,23 +1126,6 @@ void saveCredentials() {
   EEPROM.commit();
   EEPROM.end();
 }
-/*
-void turnOffAll()
-{
-  currentlabel="OFF / OFF";
-  currentlabel1="OFF";
-  currentlabel2="OFF";
-  stat[0]=stat[1]=stat[2]=stat[3]=stat[4]=stat[5]=stat[6]=stat[7]='0';
-  digitalWrite(gpio0_pin, LOW);
-  digitalWrite(gpio1_pin, LOW);
-  digitalWrite(gpio2_pin, LOW);
-  digitalWrite(gpio3_pin, LOW);
-  digitalWrite(gpio4_pin, LOW);
-  digitalWrite(gpio5_pin, LOW);
-  digitalWrite(gpio6_pin, LOW);
-  digitalWrite(gpio7_pin, LOW);
-}
-*/
 
 void turnOffPlace1()
 {
@@ -1483,6 +1174,3 @@ void connectWifi() {
   Serial.print("connRes: ");
   Serial.println(connRes);
 }
-
-
- 
